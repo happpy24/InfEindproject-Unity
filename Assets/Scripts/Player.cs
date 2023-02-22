@@ -39,18 +39,15 @@ public class Player : MonoBehaviour
         isMoving = true;
 
         float elapsedTime = 0;
-
         origPos = transform.position;
 
+        // Calculate the target position
         targetPos = origPos + Vector2.Scale(new Vector2((float)0.48, (float)0.48), direction);
 
-        // if (targetPos != boxCollider.size LayerMask.GetMask("Actor", "Blocking")
-            
-        hit = Physics2D.BoxCast(origPos, boxCollider.size, 0, targetPos, 1, LayerMask.GetMask("Actor", "Blocking"));
+        // Check if there is a blocking collider at the target position
+        Collider2D hit = Physics2D.OverlapBox(targetPos, 0.5f * boxCollider.size, 0, LayerMask.GetMask("Blocking"));
 
-        // Debug.Log(hit.collider);
-
-        if (hit.collider == null)
+        if (hit == null)
         {
             while (elapsedTime < timeToMove)
             {
