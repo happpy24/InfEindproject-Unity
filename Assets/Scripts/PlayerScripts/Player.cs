@@ -27,13 +27,13 @@ public class Player : MonoBehaviour
             if (Input.GetKey(KeyCode.UpArrow))
                 StartCoroutine(MovePlayer(Vector2.up));
 
-            if (Input.GetKey(KeyCode.LeftArrow))
+            else if (Input.GetKey(KeyCode.LeftArrow))
                 StartCoroutine(MovePlayer(Vector2.left));
 
-            if (Input.GetKey(KeyCode.DownArrow))
+            else if (Input.GetKey(KeyCode.DownArrow))
                 StartCoroutine(MovePlayer(Vector2.down));
 
-            if (Input.GetKey(KeyCode.RightArrow))
+            else if (Input.GetKey(KeyCode.RightArrow))
                 StartCoroutine(MovePlayer(Vector2.right));
         }
     }
