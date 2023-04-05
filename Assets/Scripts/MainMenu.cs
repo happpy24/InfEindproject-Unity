@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
     IEnumerator LoadGame(int levelIndex)
     {
 
-        transition.SetTrigger("StartBattle");
+        transition.SetTrigger("StartLoading");
 
         yield return new WaitForSeconds(transitionTime);
 
