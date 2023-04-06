@@ -44,11 +44,20 @@ TagManager:
   - name: Backgrounds
     uniqueID: 2836894803
     locked: 0
+  - name: Ground
+    uniqueID: 1278422755
+    locked: 0
   - name: Extra
     uniqueID: 860558901
     locked: 0
   - name: Player
     uniqueID: 2335856059
+    locked: 0
+  - name: BlockingLayer
+    uniqueID: 2120158063
+    locked: 0
+  - name: Toptiles
+    uniqueID: 1177473623
     locked: 0
   - name: UI
     uniqueID: 388298791
