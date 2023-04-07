@@ -6,14 +6,18 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     private BoxCollider2D boxCollider;
-    private bool isMoving;
     private Vector2 origPos, targetPos;
+
+    public bool isMoving = false;
 
     public float timeToMove = 0.15f;
     public float battleChance = 0.1f;
 
     public Animator transition;
     public float transitionTime = 1f;
+
+    public Animator animator;
+    private float animationHandler = 0.02f;
 
     private void Start()
     {
@@ -24,26 +28,47 @@ public class Player : MonoBehaviour
     {
         if (!isMoving)
         {
+            animationHandler -= Time.deltaTime;
+            if (animationHandler < 0)
+            {
+                animator.SetBool("isMoving", false);
+            }
+
             if (Input.GetKey(KeyCode.UpArrow))
+            {
+                animator.SetFloat("Horizontal", 1);
+                animator.SetFloat("Vertical", 0);
                 StartCoroutine(MovePlayer(Vector2.up));
-
+            } 
             else if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                animator.SetFloat("Horizontal", 0);
+                animator.SetFloat("Vertical", -1);
                 StartCoroutine(MovePlayer(Vector2.left));
-
+            } 
             else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                animator.SetFloat("Horizontal", -1);
+                animator.SetFloat("Vertical", 0);
                 StartCoroutine(MovePlayer(Vector2.down));
-
+            }
             else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                animator.SetFloat("Horizontal", 0);
+                animator.SetFloat("Vertical", 1);
                 StartCoroutine(MovePlayer(Vector2.right));
+            }
         }
     }
 
     private IEnumerator MovePlayer(Vector2 direction)
     {
         isMoving = true;
+        animationHandler = 0.02f;
+        animator.SetBool("isMoving", true);
         float elapsedTime = 0;
         origPos = transform.position;
-        targetPos = origPos + Vector2.Scale(new Vector2((float)0.48, (float)0.48), direction);
+        targetPos = origPos + Vector2.Scale(new Vector2(1, 1), direction);
 
         // Check if there is a blocking collider at the target position
         Collider2D hit = Physics2D.OverlapBox(targetPos, 0.5f * boxCollider.size, 0, LayerMask.GetMask("Blocking"));
