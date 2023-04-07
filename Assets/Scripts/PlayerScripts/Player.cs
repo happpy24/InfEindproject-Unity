@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public BoxCollider2D boxCollider;
+    private BoxCollider2D boxCollider;
     private Vector2 origPos, targetPos;
 
     public bool isMoving = false;
-    public float timeToMove = 0.15f;
+    public float timeToMove = 0.2f;
     public string playerDirection = "down";
+    public float battleChance;
 
     public Animator animator;
     private float animationHandler = 0.02f;
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (!isMoving)
         {
@@ -72,15 +73,28 @@ public class Player : MonoBehaviour
         // Check if there is a blocking collider at the target position
         Collider2D hit = Physics2D.OverlapBox(targetPos, 0.5f * boxCollider.size, 0, LayerMask.GetMask("Blocking"));
         if (hit == null)
-        {     
+        {
             while (elapsedTime < timeToMove)
-                {
-                    transform.position = Vector2.Lerp(origPos, targetPos, (elapsedTime / timeToMove));
-                    elapsedTime += Time.deltaTime;
-                    yield return null;
-                }
+            {
+                transform.position = Vector2.Lerp(origPos, targetPos, (elapsedTime / timeToMove));
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
             transform.position = targetPos;
         }
         isMoving = false;
-    }   
+        CheckForEncounters();
+    }
+
+    private void CheckForEncounters()
+    {
+        Collider2D hit = Physics2D.OverlapBox(transform.position, 0.5f * boxCollider.size, 0, LayerMask.GetMask("BattleTiles"));
+        if (hit != null)
+        {
+            if (Random.Range(1, 100) <= battleChance)
+            {
+                Debug.Log("Encounter Enemy");
+            }
+        }
+    }
 }
