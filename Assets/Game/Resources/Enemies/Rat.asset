@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7628815b34d1ab247a10cbf2e1b3b085, type: 3}
+  m_Name: Rat
+  m_EditorClassIdentifier: 
+  name: Rat
+  description: 
+  sprite: {fileID: 21300000, guid: 1a222a422a8e8cb46b8d4fa20362293c, type: 3}
+  type1: 1
+  type2: 0
+  maxHp: 30
+  attack: 56
+  defense: 35
+  spAttack: 25
+  spDefense: 35
+  speed: 72
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 7d9e6281d222b7740b72e33b472243d6, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 8e0f0580c4409d845b3b42592a2a6941, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 87322f15bbede044f9796b26c374fd37, type: 2}
+    level: 4
+  - moveBase: {fileID: 11400000, guid: d23e07bb2022cdb4f835b682d412296d, type: 2}
+    level: 7
