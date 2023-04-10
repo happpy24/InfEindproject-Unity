@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -10765,10 +10765,10 @@ TextureImporter:
       Outside_A5_7: -391999184
       Outside_A5_373: -872019002
       Outside_A5_85: 1138902906
-      Outside_A5_165: -327540390
       Outside_A5_342: 839710130
-      Outside_A5_335: 1821203033
+      Outside_A5_165: -327540390
       Outside_A5_460: 185289495
+      Outside_A5_335: 1821203033
       Outside_A5_275: -1880882889
       Outside_A5_394: -1809836283
       Outside_A5_222: 1838150071
@@ -10794,8 +10794,8 @@ TextureImporter:
       Outside_A5_301: 2021065839
       Outside_A5_252: -1710467486
       Outside_A5_0: -85868884
-      Outside_A5_482: 1388371532
       Outside_A5_493: 1828325480
+      Outside_A5_482: 1388371532
       Outside_A5_77: 1934849159
       Outside_A5_249: -222980365
       Outside_A5_157: 495837941
@@ -10988,10 +10988,10 @@ TextureImporter:
       Outside_A5_381: -1240920389
       Outside_A5_46: 182657272
       Outside_A5_346: 913140755
-      Outside_A5_271: -1905259460
       Outside_A5_429: -927876158
-      Outside_A5_333: 1073774808
+      Outside_A5_271: -1905259460
       Outside_A5_212: -2029406906
+      Outside_A5_333: 1073774808
       Outside_A5_53: -112873290
       Outside_A5_478: -1530515591
       Outside_A5_41: -616147444
