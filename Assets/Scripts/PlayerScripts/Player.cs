@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
 {
     private BoxCollider2D boxCollider;
     private Vector2 origPos, targetPos;
-
     public bool isMoving = false;
     public float timeToMove = 0.2f;
     public string playerDirection = "down";
@@ -18,9 +17,15 @@ public class Player : MonoBehaviour
     public Animator animator;
     private float animationHandler = 0.02f;
 
+    public AudioClip footstepAudio;
+    private AudioSource footsteps;
+    private float footstepFix = 0;
+
     private void Start()
     {
         boxCollider = GetComponent<BoxCollider2D>();
+        footsteps = GetComponent<AudioSource>();
+        footsteps.clip = footstepAudio;
     }
 
     public void HandleUpdate()
@@ -71,12 +76,20 @@ public class Player : MonoBehaviour
         animator.SetBool("isMoving", true);
         float elapsedTime = 0;
         origPos = transform.position;
-        targetPos = origPos + Vector2.Scale(new Vector2(1, 1), direction);
+        targetPos = origPos + Vector2.Scale(new Vector2(0.5f, 0.5f), direction);
 
         // Check if there is a blocking collider at the target position
-        Collider2D hit = Physics2D.OverlapBox(targetPos, 0.5f * boxCollider.size, 0, LayerMask.GetMask("Blocking"));
+        Collider2D hit = Physics2D.OverlapBox(targetPos, 0.25f * boxCollider.size, 0, LayerMask.GetMask("Blocking"));
         if (hit == null)
         {
+            if (footstepFix < 1)
+                ++footstepFix;
+            else
+            {
+                footstepFix = 0;
+                footsteps.Play();
+            }
+
             while (elapsedTime < timeToMove)
             {
                 transform.position = Vector2.Lerp(origPos, targetPos, (elapsedTime / timeToMove));
@@ -91,7 +104,7 @@ public class Player : MonoBehaviour
 
     private void CheckForEncounters()
     {
-        Collider2D hit = Physics2D.OverlapBox(transform.position, 0.5f * boxCollider.size, 0, LayerMask.GetMask("BattleTiles"));
+        Collider2D hit = Physics2D.OverlapBox(transform.position, 0.25f * boxCollider.size, 0, LayerMask.GetMask("BattleTiles"));
         if (hit != null)
         {
             if (UnityEngine.Random.Range(1, 100) <= battleChance)
