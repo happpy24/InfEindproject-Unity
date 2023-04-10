@@ -50,11 +50,11 @@ TagManager:
   - name: Extra
     uniqueID: 860558901
     locked: 0
-  - name: Player
-    uniqueID: 2335856059
-    locked: 0
   - name: BlockingLayer
     uniqueID: 2120158063
+    locked: 0
+  - name: Player
+    uniqueID: 2335856059
     locked: 0
   - name: Toptiles
     uniqueID: 1177473623

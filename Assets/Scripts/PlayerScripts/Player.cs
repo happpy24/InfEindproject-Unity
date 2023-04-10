@@ -14,9 +14,15 @@ public class Player : MonoBehaviour
     public Animator animator;
     private float animationHandler = 0.02f;
 
+    public AudioClip footstepAudio;
+    private AudioSource footsteps;
+    private float footstepFix = 0;
+
     private void Start()
     {
         boxCollider = GetComponent<BoxCollider2D>();
+        footsteps = GetComponent<AudioSource>();
+        footsteps.clip = footstepAudio;
     }
 
     private void Update()
@@ -73,6 +79,14 @@ public class Player : MonoBehaviour
         Collider2D hit = Physics2D.OverlapBox(targetPos, 0.25f * boxCollider.size, 0, LayerMask.GetMask("Blocking"));
         if (hit == null)
         {
+            if (footstepFix < 1)
+                ++footstepFix;
+            else
+            {
+                footstepFix = 0;
+                footsteps.Play();
+            }
+
             while (elapsedTime < timeToMove)
             {
                 transform.position = Vector2.Lerp(origPos, targetPos, (elapsedTime / timeToMove));
