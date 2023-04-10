@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -10741,7 +10741,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Outside_A5_64: -173740979
+      Outside_A5_290: 2028794895
       Outside_A5_52: 479852172
       Outside_A5_215: 1840429257
       Outside_A5_443: -1979377181
@@ -10795,10 +10795,10 @@ TextureImporter:
       Outside_A5_252: -1710467486
       Outside_A5_0: -85868884
       Outside_A5_482: 1388371532
+      Outside_A5_493: 1828325480
       Outside_A5_77: 1934849159
       Outside_A5_249: -222980365
       Outside_A5_157: 495837941
-      Outside_A5_493: 1828325480
       Outside_A5_263: 1359131091
       Outside_A5_425: 2139403375
       Outside_A5_442: 706908468
@@ -10811,9 +10811,9 @@ TextureImporter:
       Outside_A5_247: -156270226
       Outside_A5_92: -340407941
       Outside_A5_218: -842322634
-      Outside_A5_296: -1296425242
       Outside_A5_323: 1380274368
       Outside_A5_503: 1413552138
+      Outside_A5_296: -1296425242
       Outside_A5_401: 287406833
       Outside_A5_494: -1015979699
       Outside_A5_300: 1249936715
@@ -10989,12 +10989,12 @@ TextureImporter:
       Outside_A5_46: 182657272
       Outside_A5_346: 913140755
       Outside_A5_271: -1905259460
-      Outside_A5_53: -112873290
+      Outside_A5_429: -927876158
       Outside_A5_333: 1073774808
       Outside_A5_212: -2029406906
-      Outside_A5_41: -616147444
+      Outside_A5_53: -112873290
       Outside_A5_478: -1530515591
-      Outside_A5_429: -927876158
+      Outside_A5_41: -616147444
       Outside_A5_133: 1308251144
       Outside_A5_227: 171328957
       Outside_A5_243: 73727344
@@ -11042,23 +11042,23 @@ TextureImporter:
       Outside_A5_32: 967358807
       Outside_A5_39: 110539890
       Outside_A5_309: -1794847210
+      Outside_A5_400: -1086664456
       Outside_A5_292: -1458743101
       Outside_A5_436: 396582495
-      Outside_A5_400: -1086664456
       Outside_A5_102: 1309052487
       Outside_A5_148: 1531073381
-      Outside_A5_179: -615063130
       Outside_A5_390: 1153680946
-      Outside_A5_193: -704681855
+      Outside_A5_441: 1941960082
       Outside_A5_332: 466492369
       Outside_A5_293: 1923223558
-      Outside_A5_441: 1941960082
+      Outside_A5_179: -615063130
+      Outside_A5_193: -704681855
       Outside_A5_231: 753722434
       Outside_A5_471: 1365276033
       Outside_A5_43: -391547855
-      Outside_A5_115: 2064791408
       Outside_A5_266: -1921736956
       Outside_A5_258: -140059041
+      Outside_A5_115: 2064791408
       Outside_A5_10: 70544978
       Outside_A5_352: -2047558283
       Outside_A5_445: 329550571
@@ -11245,8 +11245,8 @@ TextureImporter:
       Outside_A5_31: 537632271
       Outside_A5_241: 1795186534
       Outside_A5_376: -1739311955
+      Outside_A5_64: -173740979
       Outside_A5_213: 333696352
-      Outside_A5_290: 2028794895
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

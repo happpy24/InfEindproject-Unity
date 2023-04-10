@@ -68,10 +68,10 @@ public class Player : MonoBehaviour
         animator.SetBool("isMoving", true);
         float elapsedTime = 0;
         origPos = transform.position;
-        targetPos = origPos + Vector2.Scale(new Vector2(1, 1), direction);
+        targetPos = origPos + Vector2.Scale(new Vector2(0.5f, 0.5f), direction);
 
         // Check if there is a blocking collider at the target position
-        Collider2D hit = Physics2D.OverlapBox(targetPos, 0.5f * boxCollider.size, 0, LayerMask.GetMask("Blocking"));
+        Collider2D hit = Physics2D.OverlapBox(targetPos, 0.25f * boxCollider.size, 0, LayerMask.GetMask("Blocking"));
         if (hit == null)
         {
             while (elapsedTime < timeToMove)
@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
 
     private void CheckForEncounters()
     {
-        Collider2D hit = Physics2D.OverlapBox(transform.position, 0.5f * boxCollider.size, 0, LayerMask.GetMask("BattleTiles"));
+        Collider2D hit = Physics2D.OverlapBox(transform.position, 0.25f * boxCollider.size, 0, LayerMask.GetMask("BattleTiles"));
         if (hit != null)
         {
             if (Random.Range(1, 100) <= battleChance)

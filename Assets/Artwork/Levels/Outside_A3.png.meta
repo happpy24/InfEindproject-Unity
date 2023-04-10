@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -10879,9 +10879,10 @@ TextureImporter:
       Outside_A3_37: -599903388
       Outside_A3_501: 192594104
       Outside_A3_29: 1693874820
+      Outside_A3_490: -23225107
       Outside_A3_192: 1747759839
-      Outside_A3_305: 530410887
       Outside_A3_410: 1636084324
+      Outside_A3_305: 530410887
       Outside_A3_225: -551940100
       Outside_A3_310: 1474500654
       Outside_A3_179: 2003464401
@@ -10896,7 +10897,6 @@ TextureImporter:
       Outside_A3_258: 1918385131
       Outside_A3_219: 78426504
       Outside_A3_86: 412290351
-      Outside_A3_490: -23225107
       Outside_A3_419: -687146146
       Outside_A3_370: 1636605658
       Outside_A3_9: 256453863
@@ -10949,9 +10949,9 @@ TextureImporter:
       Outside_A3_389: 1373945209
       Outside_A3_209: 701708638
       Outside_A3_151: -1049807581
-      Outside_A3_172: -1028242586
-      Outside_A3_210: -941839020
       Outside_A3_320: 1571854725
+      Outside_A3_210: -941839020
+      Outside_A3_172: -1028242586
       Outside_A3_156: 1682775360
       Outside_A3_306: 1233427865
       Outside_A3_459: 1672612990
@@ -10996,14 +10996,14 @@ TextureImporter:
       Outside_A3_507: -2005759638
       Outside_A3_31: -507866573
       Outside_A3_393: 1848489349
-      Outside_A3_99: -746542121
-      Outside_A3_309: 1909199229
-      Outside_A3_0: 141623864
-      Outside_A3_246: -452815998
-      Outside_A3_34: 1178471271
-      Outside_A3_204: -2040616494
-      Outside_A3_260: -1293298830
       Outside_A3_353: -1602378014
+      Outside_A3_99: -746542121
+      Outside_A3_0: 141623864
+      Outside_A3_260: -1293298830
+      Outside_A3_34: 1178471271
+      Outside_A3_246: -452815998
+      Outside_A3_309: 1909199229
+      Outside_A3_204: -2040616494
       Outside_A3_169: 636024435
       Outside_A3_377: -865088712
       Outside_A3_50: -725119220
@@ -11019,11 +11019,11 @@ TextureImporter:
       Outside_A3_404: -385602074
       Outside_A3_142: -1211863475
       Outside_A3_79: -1176597950
-      Outside_A3_144: 1867755807
       Outside_A3_466: -1320335839
       Outside_A3_226: -1128406655
       Outside_A3_162: 662836742
       Outside_A3_69: -340333518
+      Outside_A3_144: 1867755807
       Outside_A3_347: -1813052495
       Outside_A3_273: -1941373584
       Outside_A3_368: -1658043347
@@ -11146,9 +11146,9 @@ TextureImporter:
       Outside_A3_114: 475621577
       Outside_A3_135: 121809284
       Outside_A3_98: -1071603874
-      Outside_A3_223: -1469632530
       Outside_A3_416: -1167025551
       Outside_A3_316: -517071090
+      Outside_A3_223: -1469632530
       Outside_A3_22: 944713805
       Outside_A3_302: -1338673638
       Outside_A3_380: -2110794859
@@ -11193,10 +11193,10 @@ TextureImporter:
       Outside_A3_494: -816500812
       Outside_A3_19: 11340808
       Outside_A3_39: -224913355
-      Outside_A3_438: -246021902
+      Outside_A3_461: -1611157935
       Outside_A3_277: -1286501902
       Outside_A3_65: -309217449
-      Outside_A3_461: -1611157935
+      Outside_A3_438: -246021902
       Outside_A3_281: -925823307
       Outside_A3_474: -1011693271
       Outside_A3_24: 726534797
