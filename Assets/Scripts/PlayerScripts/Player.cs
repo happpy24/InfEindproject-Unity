@@ -6,7 +6,6 @@ public class Player : MonoBehaviour
 {
     private BoxCollider2D boxCollider;
     private Vector2 origPos, targetPos;
-
     public bool isMoving = false;
     public float timeToMove = 0.2f;
     public string playerDirection = "down";

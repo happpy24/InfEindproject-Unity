@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 8050352091827599166}
   - component: {fileID: 5179237680026084700}
   - component: {fileID: 2076224331484693018}
+  - component: {fileID: 4531306218557233774}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -231,6 +232,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &4531306218557233774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8050352091827599152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9afb15f29584aa546a19a906d85a0010, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footstepsSound: {fileID: 0}
 --- !u!1 &8050352092275793253
 GameObject:
   m_ObjectHideFlags: 0
