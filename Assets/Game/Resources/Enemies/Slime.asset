@@ -15,8 +15,8 @@ MonoBehaviour:
   name: Slime
   description: 
   sprite: {fileID: 21300000, guid: deae70b5ec385504e9785bfe8c2534d1, type: 3}
-  type1: 1
-  type2: 3
+  type1: 3
+  type2: 0
   maxHp: 45
   attack: 50
   defense: 35

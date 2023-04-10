@@ -5,7 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Enemy", menuName = "Enemy/Create new Enemy")]
 public class EnemyBase : ScriptableObject
 {
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
     [SerializeField] string name;
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
 
     [TextArea]
     [SerializeField] string description;
@@ -108,16 +110,28 @@ public enum EnemyType
     Normal,
     Fire,
     Water,
-    Electric,
-    Grass,
-    Ice,
-    Fighting,
-    Poison,
-    Ground,
-    Flying,
-    Psychic,
-    Bug,
-    Rock,
-    Ghost,
-    Dragon
+    Grass
+}
+
+public class TypeChart
+{
+    static float[][] chart =
+    {
+        //                   NOR  FIR   WAT   GRA
+        /*NOR*/ new float[] {1f,  1f,   1f,   1f},
+        /*FIR*/ new float[] {1f,  0.5f, 0.5f, 2f},
+        /*WAT*/ new float[] {1f,  2f,   0.5f, 0.5f},
+        /*GRA*/ new float[] {1f,  0.5f, 2f,   0.5f}
+    };
+
+    public static float GetEffectiveness(EnemyType attackType, EnemyType defenseType)
+    {
+        if (attackType == EnemyType.None || defenseType == EnemyType.None)
+            return 1;
+
+        int row = (int)attackType - 1;
+        int col = (int)defenseType - 1;
+
+        return chart[row][col];
+    }
 }

@@ -5,7 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Move", menuName = "Enemy/Create new move")]
 public class MoveBase : ScriptableObject
 {
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
     [SerializeField] string name;
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
 
     [TextArea]
     [SerializeField] string description;
@@ -43,5 +45,20 @@ public class MoveBase : ScriptableObject
     public int PP
     {
         get { return pp; }
+    }
+
+    public bool IsSpecial
+    {
+        get
+        {
+            if (type == EnemyType.Fire || type == EnemyType.Water || type == EnemyType.Grass)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

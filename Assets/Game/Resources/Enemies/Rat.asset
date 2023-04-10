@@ -15,20 +15,16 @@ MonoBehaviour:
   name: Rat
   description: 
   sprite: {fileID: 21300000, guid: 1a222a422a8e8cb46b8d4fa20362293c, type: 3}
-  type1: 1
+  type1: 2
   type2: 0
-  maxHp: 30
-  attack: 56
-  defense: 35
+  maxHp: 45
+  attack: 50
+  defense: 30
   spAttack: 25
-  spDefense: 35
+  spDefense: 40
   speed: 72
   learnableMoves:
-  - moveBase: {fileID: 11400000, guid: 7d9e6281d222b7740b72e33b472243d6, type: 2}
+  - moveBase: {fileID: 11400000, guid: 51fd8f07b60c4964ab80511c8b20636e, type: 2}
     level: 1
-  - moveBase: {fileID: 11400000, guid: 8e0f0580c4409d845b3b42592a2a6941, type: 2}
-    level: 1
-  - moveBase: {fileID: 11400000, guid: 87322f15bbede044f9796b26c374fd37, type: 2}
-    level: 4
-  - moveBase: {fileID: 11400000, guid: d23e07bb2022cdb4f835b682d412296d, type: 2}
-    level: 7
+  - moveBase: {fileID: 11400000, guid: 29c6b031bfe960240b9977f5243e500f, type: 2}
+    level: 3
