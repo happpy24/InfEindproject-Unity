@@ -2896,7 +2896,7 @@ Tilemap:
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -19, y: -47, z: 0}
-  m_Size: {x: 39, y: 59, z: 1}
+  m_Size: {x: 43, y: 59, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -2960,6 +2960,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d8865bdf9290ce418ee2aa72aa29c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _base: {fileID: 0}
+  level: 0
+  isPlayerUnit: 0
 --- !u!1 &324896646
 GameObject:
   m_ObjectHideFlags: 0
