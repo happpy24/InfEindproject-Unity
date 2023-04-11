@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 325b9637c06a08841b11b208f1735bdf
+guid: 8e33b5cbec2c1f44aa264b806f4f83db
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Pixelbroidery
+  - Princess Saves You
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 2

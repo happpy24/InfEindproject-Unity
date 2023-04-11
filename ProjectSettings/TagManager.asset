@@ -13,8 +13,8 @@ TagManager:
   - UI
   - Blocking
   - BattleTiles
-  - 
-  - Actor
+  - Interactable
+  - Player
   - 
   - 
   - 

@@ -20,6 +20,8 @@ public class BattleSystem : MonoBehaviour
     BattlePlayer battlePlayer;
     Enemy wildEnemy;
 
+    int escapeAttempts;
+
     public void StartBattle(BattlePlayer battlePlayer, Enemy wildEnemy)
     {
         this.battlePlayer = battlePlayer;
@@ -36,6 +38,8 @@ public class BattleSystem : MonoBehaviour
 
         yield return dialogBox.TypeDialog($"You encountered a {enemyUnit.Enemy.Base.Name}!");
         yield return new WaitForSeconds(0.5f);
+
+        escapeAttempts = 0;
         ActionSelection();
     }
 
@@ -162,7 +166,7 @@ public class BattleSystem : MonoBehaviour
             }
             else if (currentAction == 1)
             {
-                // Run
+                StartCoroutine(TryToEscape());
             }
         }
     }
@@ -197,6 +201,38 @@ public class BattleSystem : MonoBehaviour
             dialogBox.EnableMoveSelector(false);
             dialogBox.EnableDialogText(true);
             StartCoroutine(PlayerMove());
+        }
+    }
+
+    IEnumerator TryToEscape()
+    {
+        state = BattleState.Busy;
+
+        ++escapeAttempts;
+
+        int playerSpeed = playerUnit.Enemy.Speed;
+        int enemySpeed = enemyUnit.Enemy.Speed;
+
+        if (enemySpeed < playerSpeed)
+        {
+            yield return dialogBox.TypeDialog($"Ran away safely!");
+            BattleOver(true);
+        }
+        else
+        {
+            float f = (playerSpeed * 128) / enemySpeed + 30 * escapeAttempts;
+            f = f % 256;
+
+            if (UnityEngine.Random.Range(0, 256) < f)
+            {
+                yield return dialogBox.TypeDialog($"Ran away safely!");
+                BattleOver(true);
+            }
+            else
+            {
+                yield return dialogBox.TypeDialog($"You failed to flee the scene!");
+                state = BattleState.PerformMove;
+            }
         }
     }
 }
