@@ -1,43 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameplayCamera : MonoBehaviour
 {
-    public Transform lookAt;
-    public float boundX = 0.96f;
-    public float boundY = 0.48f;
+    [SerializeField] Transform player;
+    [SerializeField] float smoothing;
 
-    private void LateUpdate()
+    [SerializeField] Vector2 maxPos;
+    [SerializeField] Vector2 minPos;
+
+    private Scene scene;
+
+    private void Start()
     {
-        Vector2 delta = Vector2.zero;
+        scene = SceneManager.GetActiveScene();
+        Debug.Log("Current Scene: " + scene.name);
+    }
 
-        float deltaX = lookAt.position.x - transform.position.x;
-        if(deltaX > boundX || deltaX < -boundX)
+    private void FixedUpdate()
+    {
+        if (transform.position != player.position)
         {
-            if(transform.position.x < lookAt.position.x)
-            {
-                delta.x = deltaX - boundX;
-            }
-            else
-            {
-                delta.x = deltaX + boundX;
-            }
-        }
+            Vector3 targetPos = new Vector3 (player.position.x, player.position.y, transform.position.z);
 
-        float deltaY = lookAt.position.y - transform.position.y;
-        if (deltaY > boundY || deltaY < -boundY)
-        {
-            if (transform.position.y < lookAt.position.y)
-            {
-                delta.y = deltaY - boundY;
-            }
-            else
-            {
-                delta.y = deltaY + boundY;
-            }
-        }
+            targetPos.x = Mathf.Clamp(targetPos.x, minPos.x, maxPos.x);
+            targetPos.y = Mathf.Clamp(targetPos.y, minPos.y, maxPos.y);
 
-        transform.position += new Vector3(delta.x, delta.y, 0);
+            transform.position = Vector3.Lerp(transform.position, targetPos, smoothing);
+        }
     }
 }
