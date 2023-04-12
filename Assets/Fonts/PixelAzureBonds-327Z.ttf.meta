@@ -11,7 +11,7 @@ TrueTypeFontImporter:
   fontNames:
   - Pixel Azure Bonds
   fallbackFontReferences: []
-  customCharacters: 
+  customCharacters: ABCDEFGHIJKLMNOPQRSTUVWXYZ
   fontRenderingMode: 2
   ascentCalculationMode: 1
   useLegacyBoundsCalculation: 0
