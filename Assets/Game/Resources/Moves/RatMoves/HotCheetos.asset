@@ -17,11 +17,17 @@ MonoBehaviour:
   type: 2
   power: 0
   accuracy: 100
+  alwaysHits: 0
   pp: 5
   category: 2
   effects:
     boosts:
     - stat: 0
       boost: -1
-    status: 1
+    status: 0
+  secondaries:
+  - boosts: []
+    status: 2
+    chance: 10
+    target: 0
   target: 0

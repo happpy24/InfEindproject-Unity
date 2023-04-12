@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
@@ -19,6 +21,8 @@ public class Enemy
             return level;
         }
     }
+
+    public int Exp { get; set; }
     public int HP { get; set; }
     public List<Move> Moves { get; set; }
     public Move CurrentMove { get; set; }
@@ -28,6 +32,7 @@ public class Enemy
 
     public Queue<string> StatusChanges { get; private set; } = new Queue<string>();
     public bool HpChanged { get; set; }
+    public event Action OnStatusChanged;
 
     public void Init() 
     {
@@ -38,9 +43,13 @@ public class Enemy
             if (move.Level <= Level)
                 Moves.Add(new Move(move.Base));
 
-            if (Moves.Count >= 4)
+            if (Moves.Count >= EnemyBase.MaxNumOfMoves)
                 break;
         }
+
+        CureStatus();
+
+        Exp = Base.GetExpForLevel(Level);
 
         CalculateStats();
 
@@ -55,6 +64,8 @@ public class Enemy
             {Stat.SpAttack, 0},
             {Stat.SpDefense, 0},
             {Stat.Speed, 0},
+            {Stat.Accuracy, 0},
+            {Stat.Evasion, 0},
         };
     }
 
@@ -67,7 +78,7 @@ public class Enemy
         Stats.Add(Stat.SpDefense, Mathf.FloorToInt((Base.SpDefense * Level) / 100) + 5);
         Stats.Add(Stat.Speed, Mathf.FloorToInt((Base.Speed * Level) / 100) + 5);
 
-        MaxHp = Mathf.FloorToInt((Base.Speed * Level) / 100) + 10;
+        MaxHp = Mathf.FloorToInt((Base.Speed * MaxHp) / 100) + 10 + Level;
     }
 
     void ResetStatBoost()
@@ -78,7 +89,9 @@ public class Enemy
             {Stat.Defense, 0},
             {Stat.SpAttack, 0},
             {Stat.SpDefense, 0},
-            {Stat.Speed, 0}
+            {Stat.Speed, 0},
+            {Stat.Accuracy, 0},
+            {Stat.Evasion, 0},
         };
     }
 
@@ -115,6 +128,31 @@ public class Enemy
             Debug.Log($"{stat} has been boosted to {StatBoosts[stat]}");
         }
     } 
+    
+    public bool CheckForLevelUp()
+    {
+        if (Exp > Base.GetExpForLevel(level + 1))
+        {
+            ++level;
+            return true;
+        }
+
+        return false;
+    }
+
+    public LearnableMove GetLearnableMovesAtCurrLevel()
+    {
+        return Base.LearnableMoves.Where(x => x.Level == level).FirstOrDefault();
+
+    }
+
+    public void LearnMove(LearnableMove moveToLearn)
+    {
+        if (Moves.Count > EnemyBase.MaxNumOfMoves)
+            return;
+
+        Moves.Add(new Move(moveToLearn.Base));
+    }
 
     public int Attack 
     {
@@ -146,7 +184,7 @@ public class Enemy
     public DamageDetails TakeDamage(Move move, Enemy attacker)
     {
         float critical = 1f;
-        if (Random.value * 100f <= 6.25f)
+        if (UnityEngine.Random.value * 100f <= 6.25f)
             critical = 2f;
 
         float type = TypeChart.GetEffectiveness(move.Base.Type, this.Base.Type1) * TypeChart.GetEffectiveness(move.Base.Type, this.Base.Type2);
@@ -161,7 +199,7 @@ public class Enemy
         float attack = (move.Base.Category == MoveCategory.Special) ? attacker.SpAttack : attacker.Attack;
         float defense = (move.Base.Category == MoveCategory.Special) ? SpDefense : Defense;
 
-        float modifiers = Random.Range(0.85f, 1f) * type * critical;
+        float modifiers = UnityEngine.Random.Range(0.85f, 1f) * type * critical;
         float a = (2 * attacker.Level + 10) / 250f;
         float d = a * move.Base.Power * ((float)attack / defense) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
@@ -179,13 +217,24 @@ public class Enemy
 
     public void SetStatus(ConditionID conditionID)
     {
+        if (Status != null) return;
+
         Status = ConditionsDB.Conditions[conditionID];
         StatusChanges.Enqueue($"{Base.Name} {Status.StartMessage}");
+        OnStatusChanged?.Invoke();
+    }
+
+    public void CureStatus()
+    {
+        Status = null;
+        OnStatusChanged?.Invoke();
     }
 
     public Move GetRandomMove()
     {
-        int r = Random.Range(0, Moves.Count);
+        var movesWithPP = Moves.Where(x => x.PP > 0).ToList();
+
+        int r = UnityEngine.Random.Range(0, movesWithPP.Count);
         return Moves[r];
     }
 

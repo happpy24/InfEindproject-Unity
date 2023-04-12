@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class ConditionsDB
 {
+    public static void Init()
+    {
+        foreach (var kvp in Conditions)
+        {
+            var conditionId = kvp.Key;
+            var condition = kvp.Value;
+
+            condition.Id = conditionId;
+        }
+    }
+
     public static Dictionary<ConditionID, Condition> Conditions { get; set; } = new Dictionary<ConditionID, Condition>()
     {
         {
@@ -13,8 +24,16 @@ public class ConditionsDB
                 StartMessage = "has been poisoned!",
                 OnAfterTurn = (Enemy enemy) =>
                 {
-                    enemy.UpdateHP(enemy.MaxHp / 8);
-                    enemy.StatusChanges.Enqueue($"{enemy.Base.Name} took poison damage!");
+                    if (Random.Range(1, 5) == 1)
+                    {
+                        enemy.CureStatus();
+                        enemy.StatusChanges.Enqueue($"{enemy.Base.Name} found an antidote in the grass and is no longer poisoned");
+                    }
+                    else
+                    {
+                        enemy.UpdateHP(enemy.MaxHp / 8);
+                        enemy.StatusChanges.Enqueue($"{enemy.Base.Name} took poison damage!");
+                    }
                 }
             }
         },
@@ -25,8 +44,16 @@ public class ConditionsDB
                 StartMessage = "started burning!",
                 OnAfterTurn = (Enemy enemy) =>
                 {
-                    enemy.UpdateHP(enemy.MaxHp / 16);
-                    enemy.StatusChanges.Enqueue($"{enemy.Base.Name} is burning away!");
+                    if (Random.Range(1, 5) == 1)
+                    {
+                        enemy.CureStatus();
+                        enemy.StatusChanges.Enqueue($"{enemy.Base.Name} is no longer burning");
+                    }
+                    else
+                    {
+                        enemy.UpdateHP(enemy.MaxHp / 16);
+                        enemy.StatusChanges.Enqueue($"{enemy.Base.Name} is burning away!");
+                    }
                 }
             }
         }
