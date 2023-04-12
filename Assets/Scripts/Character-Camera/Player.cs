@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
 
             if (input != Vector2.zero)
             {
-                StartCoroutine(character.Move(input, CheckForEncounters));
+                StartCoroutine(character.Move(input, OnMoveOver));
             }
         }
 
@@ -53,7 +53,22 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void CheckForEncounters()
+    private void OnMoveOver()
+    {
+        var colliders = Physics2D.OverlapCircleAll(transform.position, 0.2f, GameLayers.i.TriggerableLayers);
+
+        foreach (var collider in colliders)
+        {
+            var triggerable = collider.GetComponent<IPlayerTriggable>();
+            if (triggerable != null)
+            {
+                triggerable.OnPlayerTriggered(this);
+                break;
+            }
+        }
+    }
+
+    private void CheckForEncounters()
     {
         if (Physics2D.OverlapCircle(transform.position, 0.2f, GameLayers.i.GrassLayer) != null)
         {

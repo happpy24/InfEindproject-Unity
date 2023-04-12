@@ -25,6 +25,7 @@ public class BattleSystem : MonoBehaviour
     Enemy wildEnemy;
 
     int escapeAttempts;
+    MoveBase moveToLearn;
 
     public void StartBattle(BattlePlayer battlePlayer, Enemy wildEnemy)
     {
@@ -76,6 +77,7 @@ public class BattleSystem : MonoBehaviour
         yield return dialogBox.TypeDialog($"Choose a move you want to forget");
         moveSelectionUI.gameObject.SetActive(true);
         moveSelectionUI.SetMoveData(enemy.Moves.Select(x => x.Base).ToList(), newMove);
+        moveToLearn = newMove;
 
         state = BattleState.MoveToForget;
     }
@@ -274,6 +276,8 @@ public class BattleSystem : MonoBehaviour
                         yield return dialogBox.TypeDialog($"{playerUnit.Enemy.Base.Name} is trying to learn {newMove.Base.Name}...");
                         yield return dialogBox.TypeDialog($"... but it cannot learn more than {EnemyBase.MaxNumOfMoves} moves");
                         yield return ChooseMoveToForget(playerUnit.Enemy, newMove.Base);
+                        yield return new WaitUntil(() => state != BattleState.MoveToForget);
+                        yield return new WaitForSeconds(2f);
                     }
                 }
 
@@ -320,7 +324,26 @@ public class BattleSystem : MonoBehaviour
         }
         else if (state == BattleState.MoveToForget)
         {
+            Action<int> onMoveSelected = (moveIndex) =>
+            {
+                moveSelectionUI.gameObject.SetActive(false);
+                if (moveIndex == EnemyBase.MaxNumOfMoves)
+                {
+                    StartCoroutine(dialogBox.TypeDialog($"{playerUnit.Enemy.Base.Name} did not learn {moveToLearn.Name}"));
+                }
+                else
+                {
+                    var selectedMove = playerUnit.Enemy.Moves[moveIndex].Base;
+                    StartCoroutine(dialogBox.TypeDialog($"{playerUnit.Enemy.Base.Name} forgot {selectedMove.Name} and learned {moveToLearn.Name}!"));
 
+                    playerUnit.Enemy.Moves[moveIndex] = new Move(moveToLearn);
+                }
+
+                moveToLearn = null;
+                state = BattleState.RunningTurn;
+            };
+
+            moveSelectionUI.HandleMoveSelection(onMoveSelected);
         }
     }
 

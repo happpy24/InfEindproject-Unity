@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,16 +21,19 @@ public class MoveSelectionUI : MonoBehaviour
         moveTexts[currentMoves.Count].text = newMove.name;
     }
 
-    public void HandleMoveSelection()
+    public void HandleMoveSelection(Action<int> onSelected)
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
             ++currentSelection;
-        else
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
             --currentSelection;
 
         currentSelection = Mathf.Clamp(currentSelection, 0, EnemyBase.MaxNumOfMoves);
 
         UpdateMoveSelection(currentSelection);
+
+        if (Input.GetKeyDown(KeyCode.Z))
+            onSelected?.Invoke(currentSelection);
     }
 
     public void UpdateMoveSelection(int selection)

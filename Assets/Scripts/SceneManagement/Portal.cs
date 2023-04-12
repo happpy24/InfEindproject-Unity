@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Portal : MonoBehaviour
+public class Portal : MonoBehaviour, IPlayerTriggable
 {
-    // ill do this later brain doodoo rn - viv
+    public void OnPlayerTriggered(Player player)
+    {
+        Debug.Log("Player entered the portal!");
+    }
 }
