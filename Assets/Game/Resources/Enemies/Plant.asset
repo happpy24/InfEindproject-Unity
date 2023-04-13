@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7628815b34d1ab247a10cbf2e1b3b085, type: 3}
-  m_Name: Evil Plant
+  m_Name: Plant
   m_EditorClassIdentifier: 
-  name: Evil Plant
+  name: Plant
   description: 
   sprite: {fileID: 21300000, guid: 26b09d2e082679d4083741012a25f9d0, type: 3}
   type1: 4
   type2: 0
   maxHp: 65
-  attack: 50
-  defense: 0
-  spAttack: 0
-  spDefense: 0
-  speed: 0
-  expYield: 72
+  attack: 35
+  defense: 80
+  spAttack: 70
+  spDefense: 80
+  speed: 20
+  expYield: 20
   learnableMoves:
-  - moveBase: {fileID: 0}
-    level: 0
-  - moveBase: {fileID: 0}
-    level: 0
-  - moveBase: {fileID: 0}
-    level: 0
+  - moveBase: {fileID: 11400000, guid: 39edd723766d9cb4290fb3e360830988, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 4851e3d31829959438b68962aa726c50, type: 2}
+    level: 5
+  - moveBase: {fileID: 11400000, guid: b532da065d7092d41857962d079c2dff, type: 2}
+    level: 3

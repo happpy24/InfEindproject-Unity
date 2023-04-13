@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7628815b34d1ab247a10cbf2e1b3b085, type: 3}
+  m_Name: Hornet
+  m_EditorClassIdentifier: 
+  name: Hornet
+  description: 
+  sprite: {fileID: 0}
+  type1: 4
+  type2: 0
+  maxHp: 30
+  attack: 60
+  defense: 30
+  spAttack: 40
+  spDefense: 30
+  speed: 110
+  expYield: 5
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 8554b851e7f7266419328b4f7cae884d, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 09d5879716e8a92488b4ab9049bd6143, type: 2}
+    level: 1
