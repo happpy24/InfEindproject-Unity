@@ -37,9 +37,7 @@ public class Player : MonoBehaviour, ISavable
         character.HandleUpdate();
         
         if (Input.GetKeyDown(KeyCode.Z))
-        {
             Interact();
-        }
     }
 
     void Interact()
@@ -73,24 +71,36 @@ public class Player : MonoBehaviour, ISavable
 
     public object CaptureState()
     {
-        float[] position = new float[] { transform.position.x, transform.position.y };
-        return position;
+        var saveData = new PlayerSaveData()
+        {
+            position = new float[] { transform.position.x, transform.position.y }
+        };
+        
+        return saveData;
     }
 
     public void RestoreState(object state)
     {
-        throw new NotImplementedException();
+        var saveData = (PlayerSaveData)state;
+
+        var pos = saveData.position;
+        transform.position = new Vector3(pos[0], pos[1]);
     }
 
-    public string Name
-    {
+    public string Name {
         get => name;
     }
 
-    public Sprite Sprite
-    {
+    public Sprite Sprite {
         get => Sprite;
     }
 
     public Character Character => character;
+}
+
+[Serializable]
+public class PlayerSaveData
+{
+    public float[] position;
+    public List<Enemy> enemies;
 }

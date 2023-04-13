@@ -34984,7 +34984,7 @@ PrefabInstance:
     - target: {fileID: 5231484879877632092, guid: a0c34833b52843743b485d9a7943968c, type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+      objectReference: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 7436684922552757876, guid: a0c34833b52843743b485d9a7943968c, type: 3}
       propertyPath: sceneToLoad
       value: 6
@@ -35060,7 +35060,7 @@ PrefabInstance:
     - target: {fileID: 7436684922552757879, guid: a0c34833b52843743b485d9a7943968c, type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+      objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 7436684922552757879, guid: a0c34833b52843743b485d9a7943968c, type: 3}
       propertyPath: m_Name
       value: Portal E

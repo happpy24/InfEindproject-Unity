@@ -69,6 +69,33 @@ public class Enemy
         };
     }
 
+    public Enemy(EnemySaveData saveData)
+    {
+        Base = saveData.name;
+        HP = saveData.hp;
+        level = saveData.level;
+        Exp = saveData.exp;
+
+        if (saveData.statusId != null)
+            Status = ConditionsDB.Conditions[saveData.statusId.Value];
+        else
+            Status = null;
+    }
+
+    public EnemySaveData GetSaveData()
+    {
+        var saveData = new EnemySaveData()
+        {
+            name = Base.Name,
+            hp = HP,
+            level = Level,
+            exp = Exp,
+            statusId = Status?.Id
+        };
+
+        return saveData;
+    }
+
     void CalculateStats()
     {
         Stats = new Dictionary<Stat, int>();
@@ -255,3 +282,13 @@ public class DamageDetails
     public float Critical { get; set; }
     public float TypeEffectiveness { get; set; }
 }
+
+public class EnemySaveData
+{
+    public string name;
+    public int hp;
+    public int level;
+    public int exp;
+    public ConditionID? statusId;
+}
+     
