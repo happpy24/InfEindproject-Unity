@@ -5,16 +5,28 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Hud/Menu.unity
     guid: 0166bc259e919e34ebb08b35a0ac4a83
   - enabled: 1
-    path: Assets/Scenes/Maps/ROUTE1.unity
+    path: Assets/Scenes/Maps/ROUTE1/CAVE.unity
+    guid: e17cb232b47b0aa43b04e87292d1299b
+  - enabled: 1
+    path: Assets/Scenes/Maps/ROUTE1/ROUTE1.unity
     guid: 1dd171af42a09a644a728b6d673e914d
   - enabled: 1
-    path: Assets/Scenes/Maps/TOWN-DAY.unity
+    path: Assets/Scenes/Maps/TOWN/TOWN-DAY.unity
     guid: 58b294f56c5dc4b488c6fece313fa04a
+  - enabled: 1
+    path: Assets/Scenes/Maps/TOWN/TOWNHOUSE1.unity
+    guid: db5df97f7783a584aa636118623914cb
+  - enabled: 1
+    path: Assets/Scenes/Maps/TOWN/TOWNHOUSE2.unity
+    guid: 6d763c29bbf66654291370dd8a248090
+  - enabled: 1
+    path: Assets/Scenes/Maps/TOWN/TOWNHOUSEWITCH.unity
+    guid: c26928b6da8e6b946a7fd60b5dbb53e0
+  - enabled: 1
+    path: Assets/Scenes/Maps/ROUTE2/ROUTE2-DAY.unity
+    guid: 8fb740d20826e94429b4e58134fd9ddd
   m_configObjects: {}

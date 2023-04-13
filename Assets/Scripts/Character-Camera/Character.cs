@@ -9,10 +9,19 @@ public class Character : MonoBehaviour
 
     public bool IsMoving { get; private set; }
 
+    public float OffsetY { get; private set; } = 0.2f;
+
     CharacterAnimator animator;
     private void Awake()
     {
         animator = GetComponent<CharacterAnimator>();
+        SetPositionAndSnaptoTile(transform.position);
+    }
+
+    public void SetPositionAndSnaptoTile(Vector2 pos)
+    {
+        pos.y += OffsetY;
+        transform.position = pos;
     }
 
     public IEnumerator Move(Vector2 moveVec, Action OnMoveOver = null)

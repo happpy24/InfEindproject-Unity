@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public event Action OnEncountered;
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
+    [SerializeField] string name;
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
 
     private Vector2 input;
  
@@ -62,21 +64,22 @@ public class Player : MonoBehaviour
             var triggerable = collider.GetComponent<IPlayerTriggable>();
             if (triggerable != null)
             {
+                character.Animator.IsMoving = false;
                 triggerable.OnPlayerTriggered(this);
                 break;
             }
         }
     }
 
-    private void CheckForEncounters()
+    public string Name
     {
-        if (Physics2D.OverlapCircle(transform.position, 0.2f, GameLayers.i.GrassLayer) != null)
-        {
-            if (UnityEngine.Random.Range(1, 100) <= 5)
-            {
-                character.Animator.IsMoving = false;
-                OnEncountered();
-            }
-        }
+        get => name;
     }
+
+    public Sprite Sprite
+    {
+        get => Sprite;
+    }
+
+    public Character Character => character;
 }
