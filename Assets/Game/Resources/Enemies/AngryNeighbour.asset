@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7628815b34d1ab247a10cbf2e1b3b085, type: 3}
+  m_Name: AngryNeighbour
+  m_EditorClassIdentifier: 
+  name: Angry Neighbour
+  description: 
+  sprite: {fileID: 0}
+  type1: 1
+  type2: 0
+  maxHp: 50
+  attack: 50
+  defense: 50
+  spAttack: 20
+  spDefense: 30
+  speed: 100
+  expYield: 30
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 5d6ec16e7e7dd224fa7691af13f92076, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 341bb451634519d4eb721d976a4a8df8, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: de8d4219da5e4594daf1c559674a5399, type: 2}
+    level: 5
