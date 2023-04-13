@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public enum BattleState { Start, ActionSelection, MoveSelection, RunningTurn, Busy, BattleOver }
+public enum BattleState { Start, ActionSelection, MoveSelection, RunningTurn, Busy, MoveToForget, BattleOver }
 public enum BattleAction { Move , UseItem, Run}
 
 public class BattleSystem : MonoBehaviour
@@ -11,10 +12,12 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] BattleUnit playerUnit;
     [SerializeField] BattleUnit enemyUnit;
     [SerializeField] BattleDialogBox dialogBox;
+    [SerializeField] MoveSelectionUI moveSelectionUI;
 
     public event Action<bool> OnBattleOver;
 
     BattleState state;
+    BattleState prevState;
     int currentAction;
     int currentMove;
 
@@ -22,6 +25,7 @@ public class BattleSystem : MonoBehaviour
     Enemy wildEnemy;
 
     int escapeAttempts;
+    MoveBase moveToLearn;
 
     public void StartBattle(BattlePlayer battlePlayer, Enemy wildEnemy)
     {
@@ -41,15 +45,8 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         escapeAttempts = 0;
-        ChooseFirstTurn();
-    }
 
-    void ChooseFirstTurn()
-    {
-        if (playerUnit.Enemy.Speed >= enemyUnit.Enemy.Speed)
-            ActionSelection();
-        else
-            StartCoroutine(EnemyMove());
+        ActionSelection();
     }
 
     void BattleOver(bool won)
@@ -74,6 +71,17 @@ public class BattleSystem : MonoBehaviour
         dialogBox.EnableMoveSelector(true);
     }
 
+    IEnumerator ChooseMoveToForget(Enemy enemy, MoveBase newMove)
+    {
+        state = BattleState.Busy;
+        yield return dialogBox.TypeDialog($"Choose a move you want to forget");
+        moveSelectionUI.gameObject.SetActive(true);
+        moveSelectionUI.SetMoveData(enemy.Moves.Select(x => x.Base).ToList(), newMove);
+        moveToLearn = newMove;
+
+        state = BattleState.MoveToForget;
+    }
+
     IEnumerator RunTurns(BattleAction playerAction)
     {
         state = BattleState.RunningTurn;
@@ -91,88 +99,80 @@ public class BattleSystem : MonoBehaviour
 
             // First Turn
             yield return RunMove(firstUnit, secondUnit, firstUnit.Enemy.CurrentMove);
+            yield return RunAfterTurn(firstUnit);
             if (state == BattleState.BattleOver) yield break;
 
             // Second Turn
             yield return RunMove(secondUnit, firstUnit, secondUnit.Enemy.CurrentMove);
+            yield return RunAfterTurn(secondUnit);
             if (state == BattleState.BattleOver) yield break;
         }
-    }
+        else
+        {
+            if (playerAction == BattleAction.UseItem)
+            {
+                dialogBox.EnableActionSelector(false);
+            }
+            else if (playerAction == BattleAction.Run)
+            {
+                yield return TryToEscape();
+            }
+        }
 
-    IEnumerator PlayerMove()
-    {
-        state = BattleState.RunningTurn;
-
-        var move = playerUnit.Enemy.Moves[currentMove];
-        yield return RunMove(playerUnit, enemyUnit, move);
-
-        if (state == BattleState.RunningTurn)
-            StartCoroutine(EnemyMove());
-    }
-
-    IEnumerator EnemyMove()
-    {
-        state = BattleState.RunningTurn;
-
-        var move = enemyUnit.Enemy.GetRandomMove();
-        yield return RunMove(enemyUnit, playerUnit, move);
-
-        if (state == BattleState.RunningTurn)
+        if (state != BattleState.BattleOver)
             ActionSelection();
     }
-
 
     IEnumerator RunMove(BattleUnit sourceUnit, BattleUnit targetUnit, Move move)
     {
         move.PP--;
         yield return dialogBox.TypeDialog($"{sourceUnit.Enemy.Base.Name} used {move.Base.Name}");
 
-        sourceUnit.PlayAttackAnimation();
-        yield return new WaitForSeconds(0.3f);
-        targetUnit.PlayHitAnimation();
-
-        if (move.Base.Category == MoveCategory.Status)
+        if (CheckIfMoveHits(move, sourceUnit.Enemy, targetUnit.Enemy))
         {
-            yield return RunMoveEffects(move, sourceUnit.Enemy, targetUnit.Enemy);
+
+            sourceUnit.PlayAttackAnimation();
+            yield return new WaitForSeconds(0.3f);
+            targetUnit.PlayHitAnimation();
+
+            if (move.Base.Category == MoveCategory.Status)
+            {
+                yield return RunMoveEffects(move.Base.Effects, sourceUnit.Enemy, targetUnit.Enemy, move.Base.Target);
+            }
+            else
+            {
+                var damageDetails = targetUnit.Enemy.TakeDamage(move, sourceUnit.Enemy);
+                yield return targetUnit.Hud.UpdateHP();
+                yield return ShowDamageDetails(damageDetails);
+            }
+
+            if (move.Base.Secondaries != null && move.Base.Secondaries.Count > 0 && targetUnit.Enemy.HP > 0)
+            {
+                foreach (var secondary in move.Base.Secondaries)
+                {
+                    var rnd = UnityEngine.Random.Range(1, 101);
+                    if (rnd <= secondary.Chance)
+                        yield return RunMoveEffects(secondary, sourceUnit.Enemy, targetUnit.Enemy, secondary.Target);
+                }
+            }
+
+            if (targetUnit.Enemy.HP <= 0)
+            {
+                yield return HandleEnemyFainted(targetUnit);
+            }
         }
         else
         {
-            var damageDetails = targetUnit.Enemy.TakeDamage(move, sourceUnit.Enemy);
-            yield return targetUnit.Hud.UpdateHP();
-            yield return ShowDamageDetails(damageDetails);
-        }
-
-        if (targetUnit.Enemy.HP <= 0)
-        {
-            yield return dialogBox.TypeDialog($"{targetUnit.Enemy.Base.Name} fainted.");
-            targetUnit.PlayFaintAnimation();
-            yield return new WaitForSeconds(2f);
-
-            CheckForBattleOver(targetUnit);
-        }
-
-        // Check if pokemon gets status effect like posion/burn
-        sourceUnit.Enemy.OnAfterTurn();
-        yield return ShowStatusChanges(sourceUnit.Enemy);
-        yield return sourceUnit.Hud.UpdateHP();
-        if (sourceUnit.Enemy.HP <= 0)
-        {
-            yield return dialogBox.TypeDialog($"{sourceUnit.Enemy.Base.Name} fainted.");
-            sourceUnit.PlayFaintAnimation();
-            yield return new WaitForSeconds(2f);
-
-            CheckForBattleOver(sourceUnit);
+            yield return dialogBox.TypeDialog($"...but it missed!");
         }
     }
 
-    IEnumerator RunMoveEffects(Move move, Enemy source, Enemy target)
+    IEnumerator RunMoveEffects(MoveEffects effects, Enemy source, Enemy target, MoveTarget moveTarget)
     {
-        var effects = move.Base.Effects;
-
         // Stat boosting (up attack, defence etc)
         if (effects.Boosts != null)
         {
-            if (move.Base.Target == MoveTarget.Self)
+            if (moveTarget == MoveTarget.Self)
                 source.ApplyBoost(effects.Boosts);
             else
                 target.ApplyBoost(effects.Boosts);
@@ -188,6 +188,47 @@ public class BattleSystem : MonoBehaviour
         yield return ShowStatusChanges(target);
     }
 
+    IEnumerator RunAfterTurn(BattleUnit sourceUnit)
+    {
+        if (state == BattleState.BattleOver) yield break;
+        yield return new WaitUntil(() => state == BattleState.RunningTurn);
+
+        // Check if pokemon gets status effect like posion/burn
+        sourceUnit.Enemy.OnAfterTurn();
+        yield return ShowStatusChanges(sourceUnit.Enemy);
+        yield return sourceUnit.Hud.UpdateHP();
+        if (sourceUnit.Enemy.HP <= 0)
+        {
+            yield return HandleEnemyFainted(sourceUnit);
+            yield return new WaitUntil(() => state == BattleState.RunningTurn);
+        }
+    }
+
+    bool CheckIfMoveHits(Move move, Enemy source, Enemy target)
+    {
+        if (move.Base.AlwaysHits)
+            return true;
+
+        float moveAccuracy = move.Base.Accuracy;
+
+        int accuracy = source.StatBoosts[Stat.Accuracy];
+        int evasion = target.StatBoosts[Stat.Evasion];
+
+        var boostValues = new float[] { 1f, 4f / 3f, 5f / 3f, 2f, 7f / 3f, 8f / 3f, 3f};
+
+        if (accuracy > 0)
+            moveAccuracy *= boostValues[accuracy];
+        else
+            moveAccuracy /= boostValues[-accuracy];
+
+        if (evasion > 0)
+            moveAccuracy /= boostValues[evasion];
+        else
+            moveAccuracy *= boostValues[-evasion];
+
+        return UnityEngine.Random.Range(1, 101) <= moveAccuracy;
+    }
+
     IEnumerator ShowStatusChanges(Enemy enemy)
     {
         while (enemy.StatusChanges.Count > 0)
@@ -195,6 +236,59 @@ public class BattleSystem : MonoBehaviour
             var message = enemy.StatusChanges.Dequeue();
             yield return dialogBox.TypeDialog(message);
         }
+    }
+
+    IEnumerator HandleEnemyFainted(BattleUnit faintedUnit)
+    {
+        yield return dialogBox.TypeDialog($"{faintedUnit.Enemy.Base.Name} fainted.");
+        faintedUnit.PlayFaintAnimation();
+        yield return new WaitForSeconds(2f);
+
+        if (!faintedUnit.IsPlayerUnit)
+        {
+            // EXP GAIN
+            int expYield = faintedUnit.Enemy.Base.ExpYield;
+            int enemyLevel = faintedUnit.Enemy.Level;
+            // float bossBonus = (isBossBattle) ? 1.5f : 1f;
+
+            int expGain = Mathf.FloorToInt((expYield * enemyLevel /* * trainerBonus*/) / 7);
+            playerUnit.Enemy.Exp += expGain;
+            yield return dialogBox.TypeDialog($"You won! {playerUnit.Enemy.Base.Name} gained {expGain} exp!");
+            yield return playerUnit.Hud.SetExpSmooth();
+
+            // CHECK LEVEL
+            while (playerUnit.Enemy.CheckForLevelUp())
+            {
+                playerUnit.Hud.SetLevel();
+                yield return dialogBox.TypeDialog($"{playerUnit.Enemy.Base.Name} leveled up to level {playerUnit.Enemy.Level}");
+
+                var newMove = playerUnit.Enemy.GetLearnableMovesAtCurrLevel();
+                if (newMove != null)
+                {
+                    if (playerUnit.Enemy.Moves.Count < EnemyBase.MaxNumOfMoves)
+                    {
+                        playerUnit.Enemy.LearnMove(newMove);
+                        yield return dialogBox.TypeDialog($"{playerUnit.Enemy.Base.Name} learned {newMove.Base.Name}!");
+                        dialogBox.SetMoveNames(playerUnit.Enemy.Moves);
+                    }
+                    else
+                    {
+                        yield return dialogBox.TypeDialog($"{playerUnit.Enemy.Base.Name} is trying to learn {newMove.Base.Name}...");
+                        yield return dialogBox.TypeDialog($"... but it cannot learn more than {EnemyBase.MaxNumOfMoves} moves");
+                        yield return ChooseMoveToForget(playerUnit.Enemy, newMove.Base);
+                        yield return new WaitUntil(() => state != BattleState.MoveToForget);
+                        yield return new WaitForSeconds(2f);
+                    }
+                }
+
+                yield return playerUnit.Hud.SetExpSmooth(true);
+            }
+
+
+            yield return new WaitForSeconds(1f);
+        }
+
+        CheckForBattleOver(faintedUnit);
     }
 
     void CheckForBattleOver(BattleUnit faintedUnit)
@@ -228,13 +322,36 @@ public class BattleSystem : MonoBehaviour
         {
             HandleMoveSelection();
         }
+        else if (state == BattleState.MoveToForget)
+        {
+            Action<int> onMoveSelected = (moveIndex) =>
+            {
+                moveSelectionUI.gameObject.SetActive(false);
+                if (moveIndex == EnemyBase.MaxNumOfMoves)
+                {
+                    StartCoroutine(dialogBox.TypeDialog($"{playerUnit.Enemy.Base.Name} did not learn {moveToLearn.Name}"));
+                }
+                else
+                {
+                    var selectedMove = playerUnit.Enemy.Moves[moveIndex].Base;
+                    StartCoroutine(dialogBox.TypeDialog($"{playerUnit.Enemy.Base.Name} forgot {selectedMove.Name} and learned {moveToLearn.Name}!"));
+
+                    playerUnit.Enemy.Moves[moveIndex] = new Move(moveToLearn);
+                }
+
+                moveToLearn = null;
+                state = BattleState.RunningTurn;
+            };
+
+            moveSelectionUI.HandleMoveSelection(onMoveSelected);
+        }
     }
 
     void HandleActionSelection()
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (currentAction < 1)
+            if (currentAction < 2)
                 ++currentAction;
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -249,11 +366,18 @@ public class BattleSystem : MonoBehaviour
         {
             if (currentAction == 0)
             {
+                prevState = state;
                 MoveSelection();
             }
             else if (currentAction == 1)
             {
-                StartCoroutine(TryToEscape());
+                prevState = state;
+                StartCoroutine(RunTurns(BattleAction.UseItem));
+            }
+            else if (currentAction == 2)
+            {
+                prevState = state;
+                StartCoroutine(RunTurns(BattleAction.Run));
             }
         }
     }
@@ -285,9 +409,16 @@ public class BattleSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
+            var move = playerUnit.Enemy.Moves[currentMove];
+            if (move.PP == 0) return;
+
             dialogBox.EnableMoveSelector(false);
             dialogBox.EnableDialogText(true);
-            StartCoroutine(PlayerMove());
+            StartCoroutine(RunTurns(BattleAction.Move));
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            ActionSelection();
         }
     }
 

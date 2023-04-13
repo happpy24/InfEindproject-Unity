@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState { FreeRoam, Battle, Dialog }
+public enum GameState { FreeRoam, Battle, Dialog, Cutscene, Paused }
 
 public class GameController : MonoBehaviour
 {
@@ -15,9 +15,19 @@ public class GameController : MonoBehaviour
 
     GameState state;
 
+    GameState stateBeforePause;
+
+    public static GameController Instance { get; private set; }
+    public static Camera WorldCamera { get; set; }
+
+    private void Awake()
+    {
+        Instance = this;
+        ConditionsDB.Init();
+    }
+
     private void Start()
     {
-        player.OnEncountered += StartBattle;
         battleSystem.OnBattleOver += EndBattle;
 
         DialogManager.Instance.OnShowDialog += () =>
@@ -31,7 +41,20 @@ public class GameController : MonoBehaviour
         };
     }
 
-    void StartBattle()
+    public void PauseGame(bool pause)
+    {
+        if (pause)
+        {
+            stateBeforePause = state;
+            state = GameState.Paused;
+        }
+        else
+        {
+            state = stateBeforePause;
+        }
+    }
+
+    public void StartBattle()
     {
         battleAnimation.SetBool("StartBattle", false);
         battleAnimation.SetBool("EndBattle", false);

@@ -23,6 +23,7 @@ MonoBehaviour:
   spAttack: 0
   spDefense: 0
   speed: 0
+  expYield: 72
   learnableMoves:
   - moveBase: {fileID: 0}
     level: 0

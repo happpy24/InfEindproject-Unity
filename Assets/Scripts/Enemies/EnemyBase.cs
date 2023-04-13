@@ -25,7 +25,17 @@ public class EnemyBase : ScriptableObject
     [SerializeField] int spDefense;
     [SerializeField] int speed;
 
+    [SerializeField] int expYield;
+
     [SerializeField] List<LearnableMove> learnableMoves;
+
+    public static int MaxNumOfMoves { get; set; } = 4;
+
+    public int GetExpForLevel(int level)
+    {
+        // MEDIUM FAST // return level * level * level;
+        /* MEDIUM SLOW */ return (6 / 5 * level * level * level) - (15 * level * level) + (100 * level) - 140;
+    }
 
     public string Name
     {
@@ -85,6 +95,8 @@ public class EnemyBase : ScriptableObject
     {
         get { return learnableMoves; }
     }
+
+    public int ExpYield => expYield;
 }
 
 [System.Serializable]
@@ -119,7 +131,10 @@ public enum Stat
     Defense,
     SpAttack,
     SpDefense,
-    Speed
+    Speed,
+
+    Accuracy,
+    Evasion
 }
 
 public class TypeChart

@@ -11,6 +11,22 @@ public class GameplayCamera : MonoBehaviour
     [SerializeField] Vector2 maxPos;
     [SerializeField] Vector2 minPos;
 
+    public float Smoothing
+    {
+        get { return smoothing; } set { smoothing = value; }
+    }
+    
+    public Vector2 MaxPos 
+    {
+        get { return maxPos; } set { maxPos = value; }
+    }
+
+    public Vector2 MinPos
+    {
+        get { return minPos; } set { minPos = value; }
+    }
+
+
     private Scene scene;
 
     private void Start()

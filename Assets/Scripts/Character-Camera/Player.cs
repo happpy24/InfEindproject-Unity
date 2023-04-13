@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public event Action OnEncountered;
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
+    [SerializeField] string name;
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
 
     private Vector2 input;
  
@@ -28,7 +30,7 @@ public class Player : MonoBehaviour
 
             if (input != Vector2.zero)
             {
-                StartCoroutine(character.Move(input, CheckForEncounters));
+                StartCoroutine(character.Move(input, OnMoveOver));
             }
         }
 
@@ -53,15 +55,31 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void CheckForEncounters()
+    private void OnMoveOver()
     {
-        if (Physics2D.OverlapCircle(transform.position, 0.2f, GameLayers.i.GrassLayer) != null)
+        var colliders = Physics2D.OverlapCircleAll(transform.position, 0.2f, GameLayers.i.TriggerableLayers);
+
+        foreach (var collider in colliders)
         {
-            if (UnityEngine.Random.Range(1, 100) <= 5)
+            var triggerable = collider.GetComponent<IPlayerTriggable>();
+            if (triggerable != null)
             {
                 character.Animator.IsMoving = false;
-                OnEncountered();
+                triggerable.OnPlayerTriggered(this);
+                break;
             }
         }
     }
+
+    public string Name
+    {
+        get => name;
+    }
+
+    public Sprite Sprite
+    {
+        get => Sprite;
+    }
+
+    public Character Character => character;
 }
