@@ -12,6 +12,10 @@ public class BattlePlayer : MonoBehaviour
         get {
             return enemies;
         }
+        set
+        {
+            enemies = value;
+        }
     }
 
     private void Start()

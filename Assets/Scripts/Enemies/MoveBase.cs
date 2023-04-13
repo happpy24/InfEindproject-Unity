@@ -5,9 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Move", menuName = "Enemy/Create new move")]
 public class MoveBase : ScriptableObject
 {
-#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
     [SerializeField] string name;
-#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
 
     [TextArea]
     [SerializeField] string description;

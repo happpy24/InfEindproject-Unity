@@ -22,18 +22,23 @@ public class ConditionsDB
             {
                 Name = "Poison",
                 StartMessage = "has been poisoned!",
-                OnAfterTurn = (Enemy enemy) =>
+                OnStart = (Enemy enemy) =>
                 {
-                    if (Random.Range(1, 5) == 1)
+                    enemy.StatusTime = Random.Range(1, 4);
+                    Debug.Log($"Will be poisoned for {enemy.StatusTime} moves");
+                },
+                OnBeforeMove = (Enemy enemy) =>
+                {
+                    if (enemy.StatusTime <= 0)
                     {
                         enemy.CureStatus();
                         enemy.StatusChanges.Enqueue($"{enemy.Base.Name} found an antidote in the grass and is no longer poisoned");
+                        return true;
                     }
-                    else
-                    {
-                        enemy.UpdateHP(enemy.MaxHp / 8);
-                        enemy.StatusChanges.Enqueue($"{enemy.Base.Name} took poison damage!");
-                    }
+                    enemy.StatusTime--;
+                    enemy.UpdateHP(enemy.MaxHp / 8);
+                    enemy.StatusChanges.Enqueue($"{enemy.Base.Name} took poison damage!");
+                    return false;
                 }
             }
         },
@@ -42,18 +47,37 @@ public class ConditionsDB
             {
                 Name = "Burn",
                 StartMessage = "started burning!",
-                OnAfterTurn = (Enemy enemy) =>
+                OnBeforeMove = (Enemy enemy) =>
                 {
                     if (Random.Range(1, 5) == 1)
                     {
                         enemy.CureStatus();
                         enemy.StatusChanges.Enqueue($"{enemy.Base.Name} is no longer burning");
+                        return true;
                     }
                     else
                     {
                         enemy.UpdateHP(enemy.MaxHp / 16);
                         enemy.StatusChanges.Enqueue($"{enemy.Base.Name} is burning away!");
+                        return false;
                     }
+                }
+            }
+        },
+        {
+            ConditionID.par, new Condition()
+            {
+                Name = "Paralyzed",
+                StartMessage = "has been Paralyzed!",
+                OnBeforeMove = (Enemy enemy) =>
+                {
+                    if (Random.Range(1, 5) == 1)
+                    {
+                        enemy.StatusChanges.Enqueue($"{enemy.Base.Name} is paralyzed and can't move!");
+                        return false; 
+                    }
+
+                    return true;
                 }
             }
         }
@@ -62,5 +86,5 @@ public class ConditionsDB
 
 public enum ConditionID
 {
-    none, psn, brn
+    none, psn, brn, par
 }

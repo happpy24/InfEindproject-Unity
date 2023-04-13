@@ -1,14 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState { FreeRoam, Battle, Dialog, Cutscene, Paused }
+public enum GameState { FreeRoam, Battle, Dialog, Menu, Item, Cutscene, Paused }
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] Player player;
     [SerializeField] BattleSystem battleSystem;
     [SerializeField] Camera worldCamera;
+    [SerializeField] InventoryUI inventoryUI;
 
     [SerializeField] Animator battleAnimation;
     [SerializeField] Animator loadingAnimation;
@@ -20,9 +22,19 @@ public class GameController : MonoBehaviour
     public static GameController Instance { get; private set; }
     public static Camera WorldCamera { get; set; }
 
+    MenuController menuController;
+
     private void Awake()
     {
         Instance = this;
+
+        menuController = GetComponent<MenuController>();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        EnemyDB.Init();
+        MoveDB.Init();
         ConditionsDB.Init();
     }
 
@@ -39,6 +51,13 @@ public class GameController : MonoBehaviour
             if (state == GameState.Dialog)
                 state = GameState.FreeRoam;
         };
+
+        menuController.onBack += () =>
+        {
+            state = GameState.FreeRoam;
+        };
+
+        menuController.onMenuSelected += OnMenuSelected;
     }
 
     public void PauseGame(bool pause)
@@ -100,13 +119,10 @@ public class GameController : MonoBehaviour
         {
             player.HandleUpdate();
 
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.C))
             {
-                SavingSystem.i.Save("saveSlot1");
-            }
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                SavingSystem.i.Load("saveSlot1");
+                menuController.OpenMenu();
+                state = GameState.Menu;
             }
         }
         else if (state == GameState.Battle)
@@ -116,6 +132,61 @@ public class GameController : MonoBehaviour
         else if (state == GameState.Dialog)
         {
             DialogManager.Instance.HandleUpdate();
+        }
+        else if (state == GameState.Menu)
+        {
+            menuController.HandleUpdate();
+        }
+        else if (state == GameState.Item)
+        {
+            Action onBack = () =>
+            {
+                inventoryUI.gameObject.SetActive(false);
+                state = GameState.FreeRoam;
+                menuController.OpenMenu();
+                state = GameState.Menu;
+            };
+
+            inventoryUI.HandleUpdate(onBack);
+        }
+    }
+
+    void OnMenuSelected(int selectedItem)
+    {
+        if (selectedItem == 0)
+        {
+            // Info
+
+        }
+        else if (selectedItem == 1)
+        {
+            // Item
+            inventoryUI.gameObject.SetActive(true);
+            state = GameState.Item;
+        }
+        else if (selectedItem == 2)
+        {
+            // Saving
+            SavingSystem.i.Save("saveSlot1");
+            state = GameState.FreeRoam;
+        }
+        else if (selectedItem == 3)
+        {
+            // Loading
+            SavingSystem.i.Load("saveSlot1");
+            state = GameState.FreeRoam;
+        }
+        else if (selectedItem == 4)
+        {
+            // Options
+        }
+        else if (selectedItem == 5)
+        {
+            // Exit to Menu
+        }
+        else if (selectedItem == 6)
+        {
+            // Exit Game
         }
     }
 }

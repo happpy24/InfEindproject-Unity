@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -62,7 +63,6 @@ public class Player : MonoBehaviour, ISavable
             var triggerable = collider.GetComponent<IPlayerTriggable>();
             if (triggerable != null)
             {
-                character.Animator.IsMoving = false;
                 triggerable.OnPlayerTriggered(this);
                 break;
             }
@@ -73,7 +73,8 @@ public class Player : MonoBehaviour, ISavable
     {
         var saveData = new PlayerSaveData()
         {
-            position = new float[] { transform.position.x, transform.position.y }
+            position = new float[] { transform.position.x, transform.position.y },
+            enemys = GetComponent<BattlePlayer>().Enemys.Select(p => p.GetSaveData()).ToList()
         };
         
         return saveData;
@@ -83,8 +84,12 @@ public class Player : MonoBehaviour, ISavable
     {
         var saveData = (PlayerSaveData)state;
 
+        // Restore position
         var pos = saveData.position;
         transform.position = new Vector3(pos[0], pos[1]);
+
+        // Restore Battlelevel
+        GetComponent<BattlePlayer>().Enemys = saveData.enemys.Select(s => new Enemy(s)).ToList();
     }
 
     public string Name {
@@ -102,5 +107,5 @@ public class Player : MonoBehaviour, ISavable
 public class PlayerSaveData
 {
     public float[] position;
-    public List<Enemy> enemies;
+    public List<EnemySaveData> enemys;
 }

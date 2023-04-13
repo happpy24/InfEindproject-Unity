@@ -29,6 +29,8 @@ public class Enemy
     public Dictionary<Stat, int> Stats { get; private set; }
     public Dictionary<Stat, int> StatBoosts { get; private set; }
     public Condition Status { get; private set; }
+    public int StatusTime { get; set; }
+
 
     public Queue<string> StatusChanges { get; private set; } = new Queue<string>();
     public bool HpChanged { get; set; }
@@ -47,31 +49,22 @@ public class Enemy
                 break;
         }
 
-        CureStatus();
+        // FIX THIS OR SMTH
+        // CureStatus();
 
         Exp = Base.GetExpForLevel(Level);
 
         CalculateStats();
-
         HP = MaxHp;
 
+        StatusChanges = new Queue<string>();
         ResetStatBoost();
-
-        StatBoosts = new Dictionary<Stat, int>()
-        {
-            {Stat.Attack, 0},
-            {Stat.Defense, 0},
-            {Stat.SpAttack, 0},
-            {Stat.SpDefense, 0},
-            {Stat.Speed, 0},
-            {Stat.Accuracy, 0},
-            {Stat.Evasion, 0},
-        };
+        Status = null;
     }
 
     public Enemy(EnemySaveData saveData)
     {
-        Base = saveData.name;
+        _base = EnemyDB.GetEnemyByName(saveData.name);
         HP = saveData.hp;
         level = saveData.level;
         Exp = saveData.exp;
@@ -80,6 +73,14 @@ public class Enemy
             Status = ConditionsDB.Conditions[saveData.statusId.Value];
         else
             Status = null;
+
+        Moves = saveData.moves.Select(s => new Move(s)).ToList();
+
+        CalculateStats();
+
+        HP = MaxHp;
+        ResetStatBoost();
+        Status = null;
     }
 
     public EnemySaveData GetSaveData()
@@ -90,7 +91,8 @@ public class Enemy
             hp = HP,
             level = Level,
             exp = Exp,
-            statusId = Status?.Id
+            statusId = Status?.Id,
+            moves = Moves.Select(m => m.GetSaveData()).ToList()
         };
 
         return saveData;
@@ -130,7 +132,7 @@ public class Enemy
         int boost = StatBoosts[stat];
         var boostValues = new float[] { 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f };
 
-        if (boost > 0)
+        if (boost >= 0)
             statVal = Mathf.FloorToInt(statVal * boostValues[boost]);
         else
             statVal = Mathf.FloorToInt(statVal / boostValues[-boost]);
@@ -150,11 +152,12 @@ public class Enemy
             if (boost > 0)
                 StatusChanges.Enqueue($"{Base.Name}'s {stat} rose!");
             else
+                // error on line -> StatusChanges = null (???)
                 StatusChanges.Enqueue($"{Base.Name}'s {stat} fell!");
 
             Debug.Log($"{stat} has been boosted to {StatBoosts[stat]}");
         }
-    } 
+    }
     
     public bool CheckForLevelUp()
     {
@@ -247,6 +250,7 @@ public class Enemy
         if (Status != null) return;
 
         Status = ConditionsDB.Conditions[conditionID];
+        Status?.OnStart?.Invoke(this);
         StatusChanges.Enqueue($"{Base.Name} {Status.StartMessage}");
         OnStatusChanged?.Invoke();
     }
@@ -263,6 +267,16 @@ public class Enemy
 
         int r = UnityEngine.Random.Range(0, movesWithPP.Count);
         return Moves[r];
+    }
+
+    public bool OnBeforeMove()
+    {
+        if (Status?.OnBeforeMove != null)
+        {
+            return Status.OnBeforeMove(this);
+        }
+
+        return true;
     }
 
     public void OnAfterTurn()
@@ -283,6 +297,7 @@ public class DamageDetails
     public float TypeEffectiveness { get; set; }
 }
 
+[Serializable]
 public class EnemySaveData
 {
     public string name;
@@ -290,5 +305,6 @@ public class EnemySaveData
     public int level;
     public int exp;
     public ConditionID? statusId;
+    public List<MoveSaveData> moves;
 }
      

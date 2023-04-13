@@ -125,6 +125,15 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator RunMove(BattleUnit sourceUnit, BattleUnit targetUnit, Move move)
     {
+        bool canRunMove = sourceUnit.Enemy.OnBeforeMove();
+        if (!canRunMove)
+        {
+            yield return ShowStatusChanges(sourceUnit.Enemy);
+            yield return sourceUnit.Hud.UpdateHP();
+            yield break;
+        }
+        yield return ShowStatusChanges(sourceUnit.Enemy);
+
         move.PP--;
         yield return dialogBox.TypeDialog($"{sourceUnit.Enemy.Base.Name} used {move.Base.Name}");
 
@@ -231,10 +240,13 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator ShowStatusChanges(Enemy enemy)
     {
-        while (enemy.StatusChanges.Count > 0)
+        if (enemy.StatusChanges != null)
         {
-            var message = enemy.StatusChanges.Dequeue();
-            yield return dialogBox.TypeDialog(message);
+            while (enemy.StatusChanges.Count > 0)
+            {
+                var message = enemy.StatusChanges.Dequeue();
+                yield return dialogBox.TypeDialog(message);
+            }
         }
     }
 

@@ -20,6 +20,7 @@ public class Portal : MonoBehaviour, IPlayerTriggable
 
     public void OnPlayerTriggered(Player player)
     {
+        player.Character.Animator.IsMoving = false;
         this.player = player;
         StartCoroutine(SwitchScene());
     }
