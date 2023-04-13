@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ISavable
 {
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
     [SerializeField] string name;
@@ -69,6 +69,17 @@ public class Player : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public object CaptureState()
+    {
+        float[] position = new float[] { transform.position.x, transform.position.y };
+        return position;
+    }
+
+    public void RestoreState(object state)
+    {
+        throw new NotImplementedException();
     }
 
     public string Name

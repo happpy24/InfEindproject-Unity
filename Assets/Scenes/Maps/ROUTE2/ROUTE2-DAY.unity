@@ -7545,6 +7545,7 @@ MonoBehaviour:
   playerUnit: {fileID: 2061490243}
   enemyUnit: {fileID: 483940677}
   dialogBox: {fileID: 80679223}
+  moveSelectionUI: {fileID: 0}
 --- !u!4 &662567452
 Transform:
   m_ObjectHideFlags: 0
@@ -7656,7 +7657,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 268939555}
   levelText: {fileID: 1088692903}
+  statusText: {fileID: 0}
   hpBar: {fileID: 405109105}
+  expBar: {fileID: 0}
+  psnColor: {r: 0, g: 0, b: 0, a: 0}
+  brnColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &876986874
 GameObject:
   m_ObjectHideFlags: 0
@@ -8971,7 +8976,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 68969294}
   levelText: {fileID: 127038653}
+  statusText: {fileID: 0}
   hpBar: {fileID: 1981693106}
+  expBar: {fileID: 0}
+  psnColor: {r: 0, g: 0, b: 0, a: 0}
+  brnColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1551561159
 GameObject:
   m_ObjectHideFlags: 0
@@ -21792,6 +21801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba158c313106eb41b36054b2162e326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: 
   character: {fileID: 0}
 --- !u!212 &1646692259
 SpriteRenderer:
