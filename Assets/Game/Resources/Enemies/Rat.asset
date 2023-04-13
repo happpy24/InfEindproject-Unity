@@ -18,12 +18,12 @@ MonoBehaviour:
   type1: 2
   type2: 0
   maxHp: 45
-  attack: 50
-  defense: 30
+  attack: 60
+  defense: 40
   spAttack: 25
-  spDefense: 40
-  speed: 72
-  expYield: 300
+  spDefense: 50
+  speed: 80
+  expYield: 15
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: 51fd8f07b60c4964ab80511c8b20636e, type: 2}
     level: 1

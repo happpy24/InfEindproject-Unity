@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7628815b34d1ab247a10cbf2e1b3b085, type: 3}
+  m_Name: Snake
+  m_EditorClassIdentifier: 
+  name: 
+  description: 
+  sprite: {fileID: 0}
+  type1: 4
+  type2: 0
+  maxHp: 40
+  attack: 70
+  defense: 45
+  spAttack: 70
+  spDefense: 45
+  speed: 80
+  expYield: 60
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: f32ae0cc577526949b7c64ce14e5c940, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: faf2910ef2d5c764db474757de0a3546, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 44e449f49ee12104a97a2ce4742101aa, type: 2}
+    level: 5
+  - moveBase: {fileID: 11400000, guid: a0f2a960fffd79445b54148af6a5bdba, type: 2}
+    level: 7

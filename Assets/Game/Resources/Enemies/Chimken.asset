@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7628815b34d1ab247a10cbf2e1b3b085, type: 3}
+  m_Name: Chimken
+  m_EditorClassIdentifier: 
+  name: Chimken
+  description: 
+  sprite: {fileID: 0}
+  type1: 1
+  type2: 0
+  maxHp: 70
+  attack: 30
+  defense: 80
+  spAttack: 20
+  spDefense: 80
+  speed: 20
+  expYield: 30
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: d335271a13c4a3c449250e25237c790a, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: ecc48f18cda53874d8915a71752891b5, type: 2}
+    level: 1
