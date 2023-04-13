@@ -7,6 +7,13 @@ public class BattlePlayer : MonoBehaviour
 {
     [SerializeField] List<Enemy> enemies;
 
+    public List<Enemy> Enemys
+    {
+        get {
+            return enemies;
+        }
+    }
+
     private void Start()
     {
         foreach (var enemy in enemies)
