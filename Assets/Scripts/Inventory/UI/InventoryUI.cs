@@ -51,6 +51,8 @@ public class InventoryUI : MonoBehaviour
     {
         UpdateItemList();
 
+        inventory.OnUpdated += UpdateItemList;
+
         SetData();
     }
 
@@ -141,6 +143,7 @@ public class InventoryUI : MonoBehaviour
             {
                 SetData();
                 Debug.Log($"Used {inventory.Slots[selectedItem].Item.Name}");
+                inventory.UseItem(selectedItem, _enemy);
             }
                 
             else if (Input.GetKeyDown(KeyCode.X))

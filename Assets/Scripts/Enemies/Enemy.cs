@@ -33,11 +33,10 @@ public class Enemy
 
 
     public Queue<string> StatusChanges { get; private set; } = new Queue<string>();
-    public bool HpChanged { get; set; }
     public event Action OnStatusChanged;
     public event Action OnHPChanged;
 
-    public void Init() 
+    public void Init()
     {
         // Generate Moves
         Moves = new List<Move>();
@@ -50,16 +49,11 @@ public class Enemy
                 break;
         }
 
-        // FIX THIS OR SMTH
-        // CureStatus();
-
-        Exp = Base.GetExpForLevel(Level);
-
-        CalculateStats();
-        HP = MaxHp;
-
         StatusChanges = new Queue<string>();
         ResetStatBoost();
+        CalculateStats();
+        HP = MaxHp;
+        Exp = Base.GetExpForLevel(Level);
         Status = null;
     }
 
@@ -77,10 +71,9 @@ public class Enemy
 
         Moves = saveData.moves.Select(s => new Move(s)).ToList();
 
-        CalculateStats();
-
-        HP = MaxHp;
         ResetStatBoost();
+        CalculateStats();
+        HP = MaxHp;
         Status = null;
     }
 
@@ -102,20 +95,20 @@ public class Enemy
     void CalculateStats()
     {
         Stats = new Dictionary<Stat, int>();
-        Stats.Add(Stat.Attack, Mathf.FloorToInt((Base.Attack * Level) / 100) + 5);
-        Stats.Add(Stat.Defense, Mathf.FloorToInt((Base.Defense * Level) / 100) + 5);
-        Stats.Add(Stat.SpAttack, Mathf.FloorToInt((Base.SpAttack * Level) / 100) + 5);
-        Stats.Add(Stat.SpDefense, Mathf.FloorToInt((Base.SpDefense * Level) / 100) + 5);
-        Stats.Add(Stat.Speed, Mathf.FloorToInt((Base.Speed * Level) / 100) + 5);
+        Stats.Add(Stat.Attack, Mathf.FloorToInt((Base.Attack * Level) / 50f) + 5);
+        Stats.Add(Stat.Defense, Mathf.FloorToInt((Base.Defense * Level) / 50f) + 5);
+        Stats.Add(Stat.SpAttack, Mathf.FloorToInt((Base.SpAttack * Level) / 50f) + 5);
+        Stats.Add(Stat.SpDefense, Mathf.FloorToInt((Base.SpDefense * Level) / 50f) + 5);
+        Stats.Add(Stat.Speed, Mathf.FloorToInt((Base.MaxHp * Level) / 50f) + 5);
 
-        MaxHp = Mathf.FloorToInt((Base.Speed * MaxHp) / 100) + 10 + Level;
+        MaxHp = Mathf.FloorToInt((Base.MaxHp * Level) / 50f) + 10 + Level;
     }
 
     void ResetStatBoost()
     {
         StatBoosts = new Dictionary<Stat, int>()
         {
-            {Stat.Attack, 0 },
+            {Stat.Attack, 0},
             {Stat.Defense, 0},
             {Stat.SpAttack, 0},
             {Stat.SpDefense, 0},
@@ -235,16 +228,21 @@ public class Enemy
         float d = a * move.Base.Power * ((float)attack / defense) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
 
-        UpdateHP(damage);
+        DecreaseHP(damage);
 
         return damageDetails;
     }
 
-    public void UpdateHP(int damage)
+    public void DecreaseHP(int damage)
     {
         HP = Mathf.Clamp(HP - damage, 0, MaxHp);
         OnHPChanged?.Invoke();
-        HpChanged = true;
+    }
+
+    public void IncreaseHP(int amount)
+    {
+        HP = Mathf.Clamp(HP + amount, 0, MaxHp);
+        OnHPChanged?.Invoke();
     }
 
     public void SetStatus(ConditionID conditionID)
@@ -289,6 +287,7 @@ public class Enemy
     public void OnBattleOver()
     {
         ResetStatBoost();
+        CalculateStats();
     }
 }
 

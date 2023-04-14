@@ -16,4 +16,17 @@ public class RecoveryItem : ItemBase
     [Header("CONDITIONS")]
     [SerializeField] ConditionID status;
     [SerializeField] bool recoverAllStatus;
+
+    public override bool Use(Enemy enemy)
+    {
+        if (hpAmount > 0)
+        {
+            if (enemy.HP == enemy.MaxHp)
+                return false;
+            
+            enemy.IncreaseHP(hpAmount);
+        }
+
+        return true;
+    }
 }
