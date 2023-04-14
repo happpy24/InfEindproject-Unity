@@ -36,7 +36,7 @@ public class ConditionsDB
                         return true;
                     }
                     enemy.StatusTime--;
-                    enemy.UpdateHP(enemy.MaxHp / 8);
+                    enemy.DecreaseHP(enemy.MaxHp / 8);
                     enemy.StatusChanges.Enqueue($"{enemy.Base.Name} took poison damage!");
                     return false;
                 }
@@ -57,7 +57,7 @@ public class ConditionsDB
                     }
                     else
                     {
-                        enemy.UpdateHP(enemy.MaxHp / 16);
+                        enemy.DecreaseHP(enemy.MaxHp / 16);
                         enemy.StatusChanges.Enqueue($"{enemy.Base.Name} is burning away!");
                         return false;
                     }

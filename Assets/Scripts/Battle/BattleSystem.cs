@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public enum BattleState { Start, ActionSelection, MoveSelection, RunningTurn, Busy, MoveToForget, BattleOver }
+public enum BattleState { Start, ActionSelection, MoveSelection, RunningTurn, Busy, Item, MoveToForget, BattleOver }
 public enum BattleAction { Move , UseItem, Run}
 
 public class BattleSystem : MonoBehaviour
@@ -13,6 +13,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] BattleUnit enemyUnit;
     [SerializeField] BattleDialogBox dialogBox;
     [SerializeField] MoveSelectionUI moveSelectionUI;
+    [SerializeField] InventoryUI inventoryUI;
 
     public event Action<bool> OnBattleOver;
 
@@ -20,6 +21,7 @@ public class BattleSystem : MonoBehaviour
     BattleState prevState;
     int currentAction;
     int currentMove;
+    bool failedRunning;
 
     BattlePlayer battlePlayer;
     Enemy wildEnemy;
@@ -56,6 +58,12 @@ public class BattleSystem : MonoBehaviour
         OnBattleOver(won);
     }
 
+    void OpenInventory()
+    {
+        state = BattleState.Item;
+        inventoryUI.gameObject.SetActive(true);
+    }
+
     void ActionSelection()
     {
         state = BattleState.ActionSelection;
@@ -86,38 +94,50 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.RunningTurn;
 
-        if (playerAction == BattleAction.Move)
+        if (failedRunning)
         {
-            playerUnit.Enemy.CurrentMove = playerUnit.Enemy.Moves[currentMove];
+            failedRunning = false;
             enemyUnit.Enemy.CurrentMove = enemyUnit.Enemy.GetRandomMove();
-
-            // Check who goes first
-            bool playerGoesFirst = playerUnit.Enemy.Speed >= enemyUnit.Enemy.Speed;
-            
-            var firstUnit = (playerGoesFirst) ? playerUnit : enemyUnit;
-            var secondUnit = (playerGoesFirst) ? enemyUnit : playerUnit;
-
-            // First Turn
-            yield return RunMove(firstUnit, secondUnit, firstUnit.Enemy.CurrentMove);
-            yield return RunAfterTurn(firstUnit);
-            if (state == BattleState.BattleOver) yield break;
-
-            // Second Turn
-            yield return RunMove(secondUnit, firstUnit, secondUnit.Enemy.CurrentMove);
-            yield return RunAfterTurn(secondUnit);
-            if (state == BattleState.BattleOver) yield break;
+            yield return RunMove(enemyUnit, playerUnit, enemyUnit.Enemy.CurrentMove);
+            yield return RunAfterTurn(playerUnit);
+            yield return RunAfterTurn(enemyUnit);
         }
         else
         {
-            if (playerAction == BattleAction.UseItem)
+            if (playerAction == BattleAction.Move)
             {
-                dialogBox.EnableActionSelector(false);
+                playerUnit.Enemy.CurrentMove = playerUnit.Enemy.Moves[currentMove];
+                enemyUnit.Enemy.CurrentMove = enemyUnit.Enemy.GetRandomMove();
+
+                // Check who goes first
+                bool playerGoesFirst = playerUnit.Enemy.Speed >= enemyUnit.Enemy.Speed;
+
+                var firstUnit = (playerGoesFirst) ? playerUnit : enemyUnit;
+                var secondUnit = (playerGoesFirst) ? enemyUnit : playerUnit;
+
+                // First Turn
+                yield return RunMove(firstUnit, secondUnit, firstUnit.Enemy.CurrentMove);
+                yield return RunAfterTurn(firstUnit);
+                if (state == BattleState.BattleOver) yield break;
+
+                // Second Turn
+                yield return RunMove(secondUnit, firstUnit, secondUnit.Enemy.CurrentMove);
+                yield return RunAfterTurn(secondUnit);
+                if (state == BattleState.BattleOver) yield break;
             }
-            else if (playerAction == BattleAction.Run)
+            else
             {
-                yield return TryToEscape();
+                if (playerAction == BattleAction.UseItem)
+                {
+                    dialogBox.EnableActionSelector(false);
+                }
+                else if (playerAction == BattleAction.Run)
+                {
+                    yield return TryToEscape();
+                }
             }
         }
+        
 
         if (state != BattleState.BattleOver)
             ActionSelection();
@@ -129,7 +149,7 @@ public class BattleSystem : MonoBehaviour
         if (!canRunMove)
         {
             yield return ShowStatusChanges(sourceUnit.Enemy);
-            yield return sourceUnit.Hud.UpdateHP();
+            yield return sourceUnit.Hud.WaitForHPUpdate();
             yield break;
         }
         yield return ShowStatusChanges(sourceUnit.Enemy);
@@ -151,7 +171,7 @@ public class BattleSystem : MonoBehaviour
             else
             {
                 var damageDetails = targetUnit.Enemy.TakeDamage(move, sourceUnit.Enemy);
-                yield return targetUnit.Hud.UpdateHP();
+                yield return targetUnit.Hud.WaitForHPUpdate();
                 yield return ShowDamageDetails(damageDetails);
             }
 
@@ -205,7 +225,7 @@ public class BattleSystem : MonoBehaviour
         // Check if pokemon gets status effect like posion/burn
         sourceUnit.Enemy.OnAfterTurn();
         yield return ShowStatusChanges(sourceUnit.Enemy);
-        yield return sourceUnit.Hud.UpdateHP();
+        yield return sourceUnit.Hud.WaitForHPUpdate();
         if (sourceUnit.Enemy.HP <= 0)
         {
             yield return HandleEnemyFainted(sourceUnit);
@@ -334,6 +354,16 @@ public class BattleSystem : MonoBehaviour
         {
             HandleMoveSelection();
         }
+        else if (state == BattleState.Item)
+        {
+            Action onBack = () =>
+            {
+                inventoryUI.gameObject.SetActive(false);
+                state = BattleState.ActionSelection;
+            };
+
+            inventoryUI.HandleUpdate(onBack);
+        }
         else if (state == BattleState.MoveToForget)
         {
             Action<int> onMoveSelected = (moveIndex) =>
@@ -384,7 +414,7 @@ public class BattleSystem : MonoBehaviour
             else if (currentAction == 1)
             {
                 prevState = state;
-                StartCoroutine(RunTurns(BattleAction.UseItem));
+                OpenInventory();
             }
             else if (currentAction == 2)
             {
@@ -463,6 +493,7 @@ public class BattleSystem : MonoBehaviour
             else
             {
                 yield return dialogBox.TypeDialog($"You failed to flee the scene!");
+                failedRunning = true;
                 state = BattleState.RunningTurn;
             }
         }

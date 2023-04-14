@@ -14,6 +14,7 @@ public class BattleHud : MonoBehaviour
 
     [SerializeField] Color psnColor;
     [SerializeField] Color brnColor;
+    [SerializeField] Color parColor;
 
     Enemy _enemy;
     Dictionary<ConditionID, Color> statusColors;
@@ -31,10 +32,12 @@ public class BattleHud : MonoBehaviour
         {
             {ConditionID.psn, psnColor},
             {ConditionID.brn, brnColor},
+            {ConditionID.par, parColor},
         };
 
         SetStatusText();
         _enemy.OnStatusChanged += SetStatusText;
+        _enemy.OnHPChanged += UpdateHP;
     }
 
     void SetStatusText()
@@ -84,13 +87,18 @@ public class BattleHud : MonoBehaviour
 
     }
 
-    public IEnumerator UpdateHP()
+    public void UpdateHP()
     {
-        if (_enemy.HpChanged)
-        {
-            yield return hpBar.SetHPSmooth((float)_enemy.HP / _enemy.MaxHp);
-            _enemy.HpChanged = false;
-        }
-            
+        StartCoroutine(UpdateHPAsync());
+    }
+
+    public IEnumerator UpdateHPAsync()
+    {
+        yield return hpBar.SetHPSmooth((float)_enemy.HP / _enemy.MaxHp);  
+    }
+
+    public IEnumerator WaitForHPUpdate()
+    {
+        yield return new WaitUntil(() => hpBar.IsUpdating == false);
     }
 }
