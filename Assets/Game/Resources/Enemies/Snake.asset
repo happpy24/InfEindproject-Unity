@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7628815b34d1ab247a10cbf2e1b3b085, type: 3}
   m_Name: Snake
   m_EditorClassIdentifier: 
-  name: 
+  name: Snake
   description: 
   sprite: {fileID: 0}
   type1: 4
