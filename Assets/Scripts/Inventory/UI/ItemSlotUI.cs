@@ -15,6 +15,7 @@ public class ItemSlotUI : MonoBehaviour
     }
 
     public Text NameText => nameText;
+
     public Text CountText => countText;
 
     public float Height => rectTransform.rect.height;

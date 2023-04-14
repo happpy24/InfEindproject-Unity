@@ -430,6 +430,8 @@ public class BattleSystem : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
+            dialogBox.EnableMoveSelector(false);
+            dialogBox.EnableDialogText(true);
             ActionSelection();
         }
     }

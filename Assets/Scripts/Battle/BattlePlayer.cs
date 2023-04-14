@@ -26,6 +26,11 @@ public class BattlePlayer : MonoBehaviour
         }
     }
 
+    public static BattlePlayer GetBattlePlayer()
+    {
+        return FindObjectOfType<Player>().GetComponent<BattlePlayer>();
+    }
+
     public Enemy GetHealthyEnemy()
     {
         return enemies.Where(x => x.HP > 0).FirstOrDefault();

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState { FreeRoam, Battle, Dialog, Menu, Item, Cutscene, Paused }
+public enum GameState { FreeRoam, Battle, Dialog, Menu, Info, Item, Cutscene, Paused }
 
 public class GameController : MonoBehaviour
 {
@@ -155,38 +155,33 @@ public class GameController : MonoBehaviour
     {
         if (selectedItem == 0)
         {
-            // Info
-
-        }
-        else if (selectedItem == 1)
-        {
             // Item
             inventoryUI.gameObject.SetActive(true);
             state = GameState.Item;
         }
-        else if (selectedItem == 2)
+        else if (selectedItem == 1)
         {
             // Saving
             SavingSystem.i.Save("saveSlot1");
             state = GameState.FreeRoam;
         }
-        else if (selectedItem == 3)
+        else if (selectedItem == 2)
         {
             // Loading
             SavingSystem.i.Load("saveSlot1");
             state = GameState.FreeRoam;
         }
-        else if (selectedItem == 4)
+        else if (selectedItem == 3)
         {
             // Options
         }
-        else if (selectedItem == 5)
+        else if (selectedItem == 4)
         {
             // Exit to Menu
         }
-        else if (selectedItem == 6)
+        else if (selectedItem == 5)
         {
-            // Exit Game
+            
         }
     }
 }

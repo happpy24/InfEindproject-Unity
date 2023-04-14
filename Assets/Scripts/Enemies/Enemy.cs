@@ -35,6 +35,7 @@ public class Enemy
     public Queue<string> StatusChanges { get; private set; } = new Queue<string>();
     public bool HpChanged { get; set; }
     public event Action OnStatusChanged;
+    public event Action OnHPChanged;
 
     public void Init() 
     {
@@ -242,6 +243,7 @@ public class Enemy
     public void UpdateHP(int damage)
     {
         HP = Mathf.Clamp(HP - damage, 0, MaxHp);
+        OnHPChanged?.Invoke();
         HpChanged = true;
     }
 
