@@ -27,6 +27,8 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] Text spDefenseText;
     [SerializeField] Text speedText;
 
+    Action onItemUsed;
+
     Enemy _enemy;
     BattlePlayer battlePlayer;
 
@@ -115,8 +117,10 @@ public class InventoryUI : MonoBehaviour
         UpdateItemSelection();
     }
 
-    public void HandleUpdate(Action onBack)
+    public void HandleUpdate(Action onBack, Action onItemUsed=null)
     {
+        this.onItemUsed = onItemUsed;
+
         if (state == InventoryUIState.ItemSelection)
         {
             int prevSelection = selectedItem;
@@ -143,7 +147,10 @@ public class InventoryUI : MonoBehaviour
             {
                 SetData();
                 Debug.Log($"Used {inventory.Slots[selectedItem].Item.Name}");
+                _enemy = battlePlayer.Enemys[0];
                 inventory.UseItem(selectedItem, _enemy);
+                UpdateData();
+                onItemUsed?.Invoke();
             }
                 
             else if (Input.GetKeyDown(KeyCode.X))

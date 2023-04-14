@@ -28,6 +28,6 @@ MonoBehaviour:
     - stat: 1
       boost: -1
     status: 0
-    chance: 0
+    chance: 10
     target: 0
   target: 0

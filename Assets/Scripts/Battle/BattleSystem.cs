@@ -101,6 +101,7 @@ public class BattleSystem : MonoBehaviour
             yield return RunMove(enemyUnit, playerUnit, enemyUnit.Enemy.CurrentMove);
             yield return RunAfterTurn(playerUnit);
             yield return RunAfterTurn(enemyUnit);
+            yield break;
         }
         else
         {
@@ -130,6 +131,8 @@ public class BattleSystem : MonoBehaviour
                 if (playerAction == BattleAction.UseItem)
                 {
                     dialogBox.EnableActionSelector(false);
+                    failedRunning = true;
+                    state = BattleState.RunningTurn;
                 }
                 else if (playerAction == BattleAction.Run)
                 {
@@ -283,7 +286,7 @@ public class BattleSystem : MonoBehaviour
             int enemyLevel = faintedUnit.Enemy.Level;
             // float bossBonus = (isBossBattle) ? 1.5f : 1f;
 
-            int expGain = Mathf.FloorToInt((expYield * enemyLevel /* * trainerBonus*/) / 7);
+            int expGain = Mathf.FloorToInt((expYield * enemyLevel /* * bossBonus*/) / 7);
             playerUnit.Enemy.Exp += expGain;
             yield return dialogBox.TypeDialog($"You won! {playerUnit.Enemy.Base.Name} gained {expGain} exp!");
             yield return playerUnit.Hud.SetExpSmooth();
@@ -361,8 +364,14 @@ public class BattleSystem : MonoBehaviour
                 inventoryUI.gameObject.SetActive(false);
                 state = BattleState.ActionSelection;
             };
+            Action onItemUsed = () =>
+            {
+                state = BattleState.Busy;
+                inventoryUI.gameObject.SetActive(false);
+                StartCoroutine(RunTurns(BattleAction.UseItem));
+            };
 
-            inventoryUI.HandleUpdate(onBack);
+            inventoryUI.HandleUpdate(onBack, onItemUsed);
         }
         else if (state == BattleState.MoveToForget)
         {
@@ -418,6 +427,7 @@ public class BattleSystem : MonoBehaviour
             }
             else if (currentAction == 2)
             {
+                state = BattleState.Busy;
                 prevState = state;
                 StartCoroutine(RunTurns(BattleAction.Run));
             }
