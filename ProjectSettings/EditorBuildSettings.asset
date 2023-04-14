@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Maps/ROUTE2/ROUTE2-DAY.unity
     guid: 8fb740d20826e94429b4e58134fd9ddd
+  - enabled: 1
+    path: Assets/Scenes/Maps/ROUTE2/LOSTHOUSE.unity
+    guid: 099aa4cfcd80f0d4fb78508eff343511
   m_configObjects: {}

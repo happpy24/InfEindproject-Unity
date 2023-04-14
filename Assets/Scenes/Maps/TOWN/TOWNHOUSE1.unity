@@ -160,7 +160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7436684922552757876, guid: a0c34833b52843743b485d9a7943968c, type: 3}
       propertyPath: cameraMinPos.y
-      value: -18.4
+      value: -18
       objectReference: {fileID: 0}
     - target: {fileID: 7436684922552757876, guid: a0c34833b52843743b485d9a7943968c, type: 3}
       propertyPath: destinationPortal
@@ -168,7 +168,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7436684922552757877, guid: a0c34833b52843743b485d9a7943968c, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7436684922552757877, guid: a0c34833b52843743b485d9a7943968c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -254,7 +254,7 @@ Transform:
   m_Children:
   - {fileID: 508957449}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &235137722
 GameObject:
@@ -5420,7 +5420,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.454, g: 0.53964704, b: 1, a: 0.6039216}
+  m_Color: {r: 0.454, g: 0.53964704, b: 1, a: 0}
   m_Origin: {x: -67, y: -60, z: 0}
   m_Size: {x: 219, y: 141, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -5451,7 +5451,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5850203245100282775, guid: e3757ac47c0fa944eaef02254e27815c, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5850203245100282775, guid: e3757ac47c0fa944eaef02254e27815c, type: 3}
       propertyPath: m_LocalPosition.x
