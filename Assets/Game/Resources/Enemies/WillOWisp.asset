@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7628815b34d1ab247a10cbf2e1b3b085, type: 3}
+  m_Name: WillOWisp
+  m_EditorClassIdentifier: 
+  name: Will-O-Wisp
+  description: 
+  sprite: {fileID: 0}
+  type1: 2
+  type2: 0
+  maxHp: 30
+  attack: 30
+  defense: 50
+  spAttack: 90
+  spDefense: 75
+  speed: 75
+  expYield: 100
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 9f1b6bca2ec563447b7382d57b8a37b8, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 105ef2c7eb5d3254cbccd0a15863563f, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 8a29df0004a3a5444bd8a74947756924, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: be72bdb50dde90b4d927291f1afc28c4, type: 2}
+    level: 1

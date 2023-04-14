@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7628815b34d1ab247a10cbf2e1b3b085, type: 3}
+  m_Name: Skeleton
+  m_EditorClassIdentifier: 
+  name: Skeleton
+  description: 
+  sprite: {fileID: 0}
+  type1: 1
+  type2: 0
+  maxHp: 100
+  attack: 20
+  defense: 100
+  spAttack: 10
+  spDefense: 100
+  speed: 20
+  expYield: 140
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 27baf3e1272ad8643882cd8370d8a579, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 7924f9994eccd4747b6b6346cddb5679, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 0a00175f9b4912b48bc9824035c3d3a8, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: e7e3956fe91b92647adc25dc79268d3f, type: 2}
+    level: 1
