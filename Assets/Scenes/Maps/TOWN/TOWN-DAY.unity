@@ -52598,7 +52598,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wildEnemys:
   - _base: {fileID: 11400000, guid: 08be70f0c8e02fd49bfcce95f844acc9, type: 2}
-    level: 13
+    level: 2
+  - _base: {fileID: 11400000, guid: 08be70f0c8e02fd49bfcce95f844acc9, type: 2}
+    level: 3
+  - _base: {fileID: 11400000, guid: 08be70f0c8e02fd49bfcce95f844acc9, type: 2}
+    level: 4
+  - _base: {fileID: 11400000, guid: 08be70f0c8e02fd49bfcce95f844acc9, type: 2}
+    level: 5
+  - _base: {fileID: 11400000, guid: 08be70f0c8e02fd49bfcce95f844acc9, type: 2}
+    level: 6
+  - _base: {fileID: 11400000, guid: 4d5941291d1cdff43a96def00aca01b5, type: 2}
+    level: 2
+  - _base: {fileID: 11400000, guid: 4d5941291d1cdff43a96def00aca01b5, type: 2}
+    level: 3
+  - _base: {fileID: 11400000, guid: 4d5941291d1cdff43a96def00aca01b5, type: 2}
+    level: 4
+  - _base: {fileID: 11400000, guid: 4d5941291d1cdff43a96def00aca01b5, type: 2}
+    level: 5
+  - _base: {fileID: 11400000, guid: 4d5941291d1cdff43a96def00aca01b5, type: 2}
+    level: 6
+  - _base: {fileID: 11400000, guid: 2e86c575adc41b24c8b23ac558cf3a52, type: 2}
+    level: 2
+  - _base: {fileID: 11400000, guid: 2e86c575adc41b24c8b23ac558cf3a52, type: 2}
+    level: 3
+  - _base: {fileID: 11400000, guid: 2e86c575adc41b24c8b23ac558cf3a52, type: 2}
+    level: 4
+  - _base: {fileID: 11400000, guid: 2e86c575adc41b24c8b23ac558cf3a52, type: 2}
+    level: 5
+  - _base: {fileID: 11400000, guid: 2e86c575adc41b24c8b23ac558cf3a52, type: 2}
+    level: 6
+  - _base: {fileID: 11400000, guid: 335d01482cc88a14b863c9b50f180e57, type: 2}
+    level: 2
+  - _base: {fileID: 11400000, guid: 335d01482cc88a14b863c9b50f180e57, type: 2}
+    level: 3
+  - _base: {fileID: 11400000, guid: 335d01482cc88a14b863c9b50f180e57, type: 2}
+    level: 4
+  - _base: {fileID: 11400000, guid: 335d01482cc88a14b863c9b50f180e57, type: 2}
+    level: 5
+  - _base: {fileID: 11400000, guid: 335d01482cc88a14b863c9b50f180e57, type: 2}
+    level: 6
+  - _base: {fileID: 11400000, guid: 12789bfdf2dca3e47866b3ac0d778055, type: 2}
+    level: 2
+  - _base: {fileID: 11400000, guid: 12789bfdf2dca3e47866b3ac0d778055, type: 2}
+    level: 3
+  - _base: {fileID: 11400000, guid: 12789bfdf2dca3e47866b3ac0d778055, type: 2}
+    level: 4
+  - _base: {fileID: 11400000, guid: 12789bfdf2dca3e47866b3ac0d778055, type: 2}
+    level: 5
+  - _base: {fileID: 11400000, guid: 12789bfdf2dca3e47866b3ac0d778055, type: 2}
+    level: 6
 --- !u!156049354 &1923650872
 Grid:
   m_ObjectHideFlags: 0
