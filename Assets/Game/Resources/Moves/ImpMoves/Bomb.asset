@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8893ac8f78f4ed04dadd439c798e118f, type: 3}
-  m_Name: StunShot
+  m_Name: Bomb
   m_EditorClassIdentifier: 
-  name: Stun Shot
+  name: Bombs? Its yours, my friend
   description: 
-  type: 3
-  power: 60
-  accuracy: 100
+  type: 2
+  power: 80
+  accuracy: 80
   alwaysHits: 0
-  pp: 10
+  pp: 5
   category: 1
   effects:
     boosts: []
     status: 0
   secondaries:
   - boosts: []
-    status: 3
-    chance: 10
+    status: 2
+    chance: 20
     target: 0
   target: 0
