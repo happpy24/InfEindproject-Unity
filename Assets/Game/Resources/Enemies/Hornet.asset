@@ -17,7 +17,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 90e8e0c0bde5ec64d87a357fde823545, type: 3}
   type1: 4
   type2: 0
-  maxHp: 30
+  maxHp: 10
   attack: 60
   defense: 30
   spAttack: 40
