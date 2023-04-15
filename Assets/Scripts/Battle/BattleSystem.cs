@@ -217,7 +217,10 @@ public class BattleSystem : MonoBehaviour
         // Status Condition (poisoned/burning)
         if (effects.Status != ConditionID.none)
         {
-            target.SetStatus(effects.Status);
+            if (moveTarget == MoveTarget.Self)
+                source.SetStatus(effects.Status);
+            else
+                target.SetStatus(effects.Status);
         }
 
         yield return ShowStatusChanges(source);
@@ -290,7 +293,7 @@ public class BattleSystem : MonoBehaviour
             int enemyLevel = faintedUnit.Enemy.Level;
             // float bossBonus = (isBossBattle) ? 1.5f : 1f;
 
-            int expGain = Mathf.FloorToInt((expYield * enemyLevel /* * bossBonus*/) / 7);
+            int expGain = Mathf.FloorToInt((expYield * enemyLevel * 1f) / 7);
             playerUnit.Enemy.Exp += expGain;
             yield return dialogBox.TypeDialog($"You won! {playerUnit.Enemy.Base.Name} gained {expGain} exp!");
             yield return playerUnit.Hud.SetExpSmooth();

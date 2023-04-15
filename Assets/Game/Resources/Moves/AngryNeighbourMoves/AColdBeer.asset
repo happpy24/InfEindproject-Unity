@@ -22,10 +22,6 @@ MonoBehaviour:
   category: 2
   effects:
     boosts: []
-    status: 0
-  secondaries:
-  - boosts: []
     status: 1
-    chance: 100
-    target: 1
+  secondaries: []
   target: 1

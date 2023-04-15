@@ -87,7 +87,7 @@ public class InventoryUI : MonoBehaviour
 
         float normalizedExp = GetNormalizedExp();
         expBar.transform.localScale = new Vector3(normalizedExp, 1, 1);
-        expText.text = _enemy.Exp.ToString() + "/" + _enemy.Base.GetExpForLevel(_enemy.Level).ToString();
+        expText.text = (_enemy.Exp - 110).ToString() + "/" + (_enemy.Base.GetExpForLevel(_enemy.Level + 1) - 110).ToString();
     }
 
     float GetNormalizedExp()

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState { FreeRoam, Battle, Dialog, Menu, Info, Item, Cutscene, Paused }
+public enum GameState { FreeRoam, Battle, Dialog, Menu, MainMenu, Info, Item, Cutscene, Paused }
 
 public class GameController : MonoBehaviour
 {
@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour
         EnemyDB.Init();
         MoveDB.Init();
         ConditionsDB.Init();
+        ItemDB.Init();
     }
 
     private void Start()
@@ -178,11 +179,14 @@ public class GameController : MonoBehaviour
         }
         else if (selectedItem == 4)
         {
-            // Exit to Menu
+            // Mainmenu
+            state = GameState.MainMenu;
         }
         else if (selectedItem == 5)
         {
-            
+            // Quit
+            Debug.Log("QUIT GAME");
+            Application.Quit();
         }
     }
 }
