@@ -15,6 +15,11 @@ public class GameController : MonoBehaviour
     [SerializeField] Animator battleAnimation;
     [SerializeField] Animator loadingAnimation;
 
+    [SerializeField] AudioClip wildBattleMusic;
+    [SerializeField] AudioSource musicSaver;
+
+    AudioClip prevMusic;
+
     GameState state;
 
     GameState prevState;
@@ -77,16 +82,19 @@ public class GameController : MonoBehaviour
 
     public void StartBattle()
     {
+        prevMusic = musicSaver.clip;
         battleAnimation.SetBool("StartBattle", false);
         battleAnimation.SetBool("EndBattle", false);
         loadingAnimation.SetBool("StartLoading", false);
         loadingAnimation.SetBool("EndLoading", false);
         state = GameState.Battle;
+        AudioManager.i.PlayMusic(wildBattleMusic);
         StartCoroutine(OpeningAnimation());
     }
 
     void EndBattle(bool won)
     {
+        AudioManager.i.PlayMusic(prevMusic);
         state = GameState.FreeRoam;
         StartCoroutine(EndingAnimation());
     }

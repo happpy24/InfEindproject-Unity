@@ -15,6 +15,8 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] MoveSelectionUI moveSelectionUI;
     [SerializeField] InventoryUI inventoryUI;
 
+    [SerializeField] AudioClip battleVictoryMusic;
+
     public event Action<bool> OnBattleOver;
 
     BattleState state;
@@ -36,6 +38,7 @@ public class BattleSystem : MonoBehaviour
     {
         this.battlePlayer = battlePlayer;
         this.wildEnemy = wildEnemy;
+
         StartCoroutine(SetupBattle());
     }
 
@@ -288,6 +291,8 @@ public class BattleSystem : MonoBehaviour
 
         if (!faintedUnit.IsPlayerUnit)
         {
+            AudioManager.i.PlayMusic(battleVictoryMusic);
+
             // EXP GAIN
             int expYield = faintedUnit.Enemy.Base.ExpYield;
             int enemyLevel = faintedUnit.Enemy.Level;

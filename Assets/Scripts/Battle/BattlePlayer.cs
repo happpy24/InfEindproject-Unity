@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,8 @@ using UnityEngine;
 public class BattlePlayer : MonoBehaviour
 {
     [SerializeField] List<Enemy> enemies;
+
+    public event Action OnUpdated;
 
     public List<Enemy> Enemys
     {
@@ -24,6 +27,11 @@ public class BattlePlayer : MonoBehaviour
         {
             enemy.Init();
         }
+    }
+
+    public void BattlePlayerUpdated()
+    {
+        OnUpdated?.Invoke();
     }
 
     public static BattlePlayer GetBattlePlayer()

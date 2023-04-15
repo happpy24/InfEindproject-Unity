@@ -14,7 +14,10 @@ public class Portal : MonoBehaviour, IPlayerTriggable
     [SerializeField] Vector2 cameraMaxPos;
     [SerializeField] Vector2 cameraMinPos;
 
+    [SerializeField] AudioClip sceneMusic;
+
     Player player;
+    AudioSource clip;
     GameplayCamera cam;
     Fader fader;
 
@@ -42,10 +45,14 @@ public class Portal : MonoBehaviour, IPlayerTriggable
         var destPortal = FindObjectsOfType<Portal>().First(x => x != this && x.destinationPortal == this.destinationPortal);
         player.Character.SetPositionAndSnaptoTile(destPortal.SpawnPoint.position);
 
-        // Error on line down here
         cam = FindAnyObjectByType<GameplayCamera>();
         cam.MaxPos = cameraMaxPos;
         cam.MinPos = cameraMinPos;
+
+        GameObject clipclip = GameObject.Find("MusicPlayer");
+        clip = clipclip.GetComponent<AudioSource>();
+        if (clip.clip != sceneMusic)
+            AudioManager.i.PlayMusic(sceneMusic, fade: true);
 
         yield return new WaitForSeconds(1f);
         yield return fader.FadeOut(0.3f);

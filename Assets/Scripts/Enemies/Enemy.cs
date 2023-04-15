@@ -102,6 +102,12 @@ public class Enemy
         Stats.Add(Stat.Speed, Mathf.FloorToInt((Base.MaxHp * Level) / 50f) + 5);
 
         MaxHp = Mathf.FloorToInt((Base.MaxHp * Level) / 50f) + 10 + Level;
+
+        int oldMaxHP = MaxHp;
+        MaxHp = Mathf.FloorToInt((Base.MaxHp * level) / 50f) + 10 + Level;
+
+        if (oldMaxHP != 0)
+            HP += MaxHp - oldMaxHP;
     }
 
     void ResetStatBoost()
@@ -176,6 +182,12 @@ public class Enemy
             return;
 
         Moves.Add(new Move(moveToLearn.Base));
+    }
+
+    public void Heal()
+    {
+        HP = MaxHp;
+        OnHPChanged?.Invoke();
     }
 
     public int Attack 

@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Healer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public IEnumerator Heal(Transform player)
     {
-        
-    }
+        yield return Fader.i.FadeIn(0.5f);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        var battlePlayer = player.GetComponent<BattlePlayer>();
+        battlePlayer.Enemys.ForEach(p => p.Heal());
+        battlePlayer.BattlePlayerUpdated();
+
+        yield return Fader.i.FadeOut(0.5f);
     }
 }

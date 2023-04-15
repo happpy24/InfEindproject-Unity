@@ -13,9 +13,12 @@ public class NPCController : MonoBehaviour, Interactable
     int currentPattern = 0;
 
     Character character;
+    Healer healer;
     private void Awake()
     {
         character = GetComponent<Character>();
+        healer = GetComponent<Healer>();
+
     }
 
     public IEnumerator Interact(Transform initiator)
@@ -29,6 +32,11 @@ public class NPCController : MonoBehaviour, Interactable
             
             idleTimer = 0f;
             state = NPCState.Idle;
+
+            if (healer != null)
+            {
+                yield return healer.Heal(initiator);
+            }
         }
     }
 
