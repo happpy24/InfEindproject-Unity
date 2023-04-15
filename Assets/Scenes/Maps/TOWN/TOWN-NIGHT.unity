@@ -61882,7 +61882,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1297395161
@@ -62234,8 +62234,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wildEnemys:
-  - _base: {fileID: 11400000, guid: 08be70f0c8e02fd49bfcce95f844acc9, type: 2}
-    level: 13
+  - _base: {fileID: 11400000, guid: 12789bfdf2dca3e47866b3ac0d778055, type: 2}
+    level: 15
+  - _base: {fileID: 11400000, guid: 12789bfdf2dca3e47866b3ac0d778055, type: 2}
+    level: 16
+  - _base: {fileID: 11400000, guid: 12789bfdf2dca3e47866b3ac0d778055, type: 2}
+    level: 17
+  - _base: {fileID: 11400000, guid: 12789bfdf2dca3e47866b3ac0d778055, type: 2}
+    level: 18
+  - _base: {fileID: 11400000, guid: 335d01482cc88a14b863c9b50f180e57, type: 2}
+    level: 15
+  - _base: {fileID: 11400000, guid: 335d01482cc88a14b863c9b50f180e57, type: 2}
+    level: 16
+  - _base: {fileID: 11400000, guid: 335d01482cc88a14b863c9b50f180e57, type: 2}
+    level: 17
+  - _base: {fileID: 11400000, guid: 335d01482cc88a14b863c9b50f180e57, type: 2}
+    level: 18
+  - _base: {fileID: 11400000, guid: a86f57bde2ead1d488e3f3b5caa9c123, type: 2}
+    level: 15
+  - _base: {fileID: 11400000, guid: a86f57bde2ead1d488e3f3b5caa9c123, type: 2}
+    level: 16
+  - _base: {fileID: 11400000, guid: a86f57bde2ead1d488e3f3b5caa9c123, type: 2}
+    level: 17
+  - _base: {fileID: 11400000, guid: a86f57bde2ead1d488e3f3b5caa9c123, type: 2}
+    level: 18
+  - _base: {fileID: 11400000, guid: 4b8784fd5561afa44b4a848e6272fc54, type: 2}
+    level: 15
+  - _base: {fileID: 11400000, guid: 4b8784fd5561afa44b4a848e6272fc54, type: 2}
+    level: 16
+  - _base: {fileID: 11400000, guid: 4b8784fd5561afa44b4a848e6272fc54, type: 2}
+    level: 17
+  - _base: {fileID: 11400000, guid: 4b8784fd5561afa44b4a848e6272fc54, type: 2}
+    level: 18
+  - _base: {fileID: 11400000, guid: 5707fea1930f6144ba3692a781464375, type: 2}
+    level: 15
+  - _base: {fileID: 11400000, guid: 5707fea1930f6144ba3692a781464375, type: 2}
+    level: 16
+  - _base: {fileID: 11400000, guid: 5707fea1930f6144ba3692a781464375, type: 2}
+    level: 17
+  - _base: {fileID: 11400000, guid: 5707fea1930f6144ba3692a781464375, type: 2}
+    level: 18
 --- !u!156049354 &1923650872
 Grid:
   m_ObjectHideFlags: 0
