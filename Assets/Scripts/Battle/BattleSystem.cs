@@ -17,6 +17,8 @@ public class BattleSystem : MonoBehaviour
 
     [SerializeField] AudioClip battleVictoryMusic;
 
+    [SerializeField] GameOver gameOver;
+
     public event Action<bool> OnBattleOver;
 
     BattleState state;
@@ -33,8 +35,6 @@ public class BattleSystem : MonoBehaviour
 
     int escapeAttempts;
     MoveBase moveToLearn;
-
-    GameOver gameOver;
 
     public void StartBattle(BattlePlayer battlePlayer, Enemy wildEnemy)
     {
@@ -345,6 +345,7 @@ public class BattleSystem : MonoBehaviour
     {
         if (faintedUnit.IsPlayerUnit)
         {
+            gameOver = GetComponent<GameOver>();
             BattleOver(false);
             gameOver.OpenGameOver();
         }

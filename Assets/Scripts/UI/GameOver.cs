@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class GameOver : MonoBehaviour
 {
     [SerializeField] GameObject menu;
+    [SerializeField] AudioClip gameoverClip;
 
     public event Action<int> onMenuSelected;
     public event Action onBack;
@@ -23,6 +24,7 @@ public class GameOver : MonoBehaviour
 
     public void OpenGameOver()
     {
+        AudioManager.i.PlayMusic(gameoverClip, false);
         menu.SetActive(true);
         UpdateItemSelection();
     }
@@ -48,14 +50,14 @@ public class GameOver : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            onMenuSelected?.Invoke(selectedItem);
-            CloseGameOver();
-        }
-        else if (Input.GetKeyDown(KeyCode.X))
-        {
-            selectedItem = 0;
-            onBack?.Invoke();
-            CloseGameOver();
+            if (selectedItem == 0)
+            {
+                // do something
+            }
+            else if (selectedItem == 1)
+            {
+                Application.Quit();
+            }
         }
     }
 
