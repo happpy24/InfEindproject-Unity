@@ -183,7 +183,7 @@ public class GameController : MonoBehaviour
         }
         else if (selectedItem == 3)
         {
-            // Options
+            // OPTIONS
         }
         else if (selectedItem == 4)
         {

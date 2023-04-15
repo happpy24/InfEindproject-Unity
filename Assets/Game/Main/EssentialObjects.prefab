@@ -46,6 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 913a8ff59e94f5c4f809837ae85618a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxList:
+  - id: 0
+    clip: {fileID: 8300000, guid: dd63e86f9e5e1444db6b75e8b3cdc2eb, type: 3}
+  - id: 1
+    clip: {fileID: 8300000, guid: 9933b37372759714dac9130c3b9d5b35, type: 3}
+  - id: 2
+    clip: {fileID: 8300000, guid: 6f0417edb0c767743b1253cad8a344c2, type: 3}
   musicPlayer: {fileID: 6834234678393281425}
   sfxPlayer: {fileID: 6730057932974616253}
   fadeDuration: 0.75
@@ -4731,6 +4738,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2067763600699960610}
     m_Modifications:
+    - target: {fileID: 2407816532227082457, guid: cb6d0a44fe3a4fa45951751b1ca02271, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3390157001845698587, guid: cb6d0a44fe3a4fa45951751b1ca02271, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4897,6 +4908,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4567934224642025639, guid: cb6d0a44fe3a4fa45951751b1ca02271, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5037973799995102472, guid: cb6d0a44fe3a4fa45951751b1ca02271, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8713174210177992005, guid: cb6d0a44fe3a4fa45951751b1ca02271, type: 3}

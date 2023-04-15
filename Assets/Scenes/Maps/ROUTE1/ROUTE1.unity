@@ -17431,7 +17431,7 @@ PrefabInstance:
     - target: {fileID: 2919143354743571813, guid: 107d65afcbe0a63439a99fa7ef24da16, type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 11400000, guid: 33ece55fc7bdd614da1aa95458eeefe0, type: 2}
+      objectReference: {fileID: 11400000, guid: debe35037b42dbc428680e0b823a5494, type: 2}
     - target: {fileID: 2919143354743571814, guid: 107d65afcbe0a63439a99fa7ef24da16, type: 3}
       propertyPath: m_Name
       value: Pickup

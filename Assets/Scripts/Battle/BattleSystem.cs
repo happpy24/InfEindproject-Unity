@@ -34,6 +34,8 @@ public class BattleSystem : MonoBehaviour
     int escapeAttempts;
     MoveBase moveToLearn;
 
+    GameOver gameOver;
+
     public void StartBattle(BattlePlayer battlePlayer, Enemy wildEnemy)
     {
         this.battlePlayer = battlePlayer;
@@ -172,6 +174,7 @@ public class BattleSystem : MonoBehaviour
 
             sourceUnit.PlayAttackAnimation();
             yield return new WaitForSeconds(0.3f);
+            AudioManager.i.PlaySfx(AudioId.Hit);
             targetUnit.PlayHitAnimation();
 
             if (move.Base.Category == MoveCategory.Status)
@@ -343,6 +346,7 @@ public class BattleSystem : MonoBehaviour
         if (faintedUnit.IsPlayerUnit)
         {
             BattleOver(false);
+            gameOver.OpenGameOver();
         }
         else
             BattleOver(true);
@@ -428,6 +432,7 @@ public class BattleSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
+            AudioManager.i.PlaySfx(AudioId.UISelect);
             if (currentAction == 0)
             {
                 prevState = state;
@@ -475,6 +480,7 @@ public class BattleSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
+            AudioManager.i.PlaySfx(AudioId.UISelect);
             var move = playerUnit.Enemy.Moves[currentMove];
             if (move.PP == 0) return;
 
