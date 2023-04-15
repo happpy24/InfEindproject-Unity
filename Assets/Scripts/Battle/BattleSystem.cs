@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 public enum BattleState { Start, ActionSelection, MoveSelection, RunningTurn, Busy, Item, MoveToForget, BattleOver }
-public enum BattleAction { Move , UseItem, Run}
+public enum BattleAction { Move, UseItem, Run}
 
 public class BattleSystem : MonoBehaviour
 {
@@ -19,6 +19,9 @@ public class BattleSystem : MonoBehaviour
 
     BattleState state;
     BattleState prevState;
+
+    BattleAction action;
+
     int currentAction;
     int currentMove;
     bool failedRunning;
@@ -74,6 +77,7 @@ public class BattleSystem : MonoBehaviour
     void MoveSelection()
     {
         state = BattleState.MoveSelection;
+        action = BattleAction.Move;
         dialogBox.EnableActionSelector(false);
         dialogBox.EnableDialogText(false);
         dialogBox.EnableMoveSelector(true);
@@ -97,11 +101,11 @@ public class BattleSystem : MonoBehaviour
         if (failedRunning)
         {
             failedRunning = false;
+            dialogBox.EnableActionSelector(false);
             enemyUnit.Enemy.CurrentMove = enemyUnit.Enemy.GetRandomMove();
             yield return RunMove(enemyUnit, playerUnit, enemyUnit.Enemy.CurrentMove);
             yield return RunAfterTurn(playerUnit);
             yield return RunAfterTurn(enemyUnit);
-            yield break;
         }
         else
         {
@@ -368,6 +372,7 @@ public class BattleSystem : MonoBehaviour
             {
                 state = BattleState.Busy;
                 inventoryUI.gameObject.SetActive(false);
+                failedRunning = true;
                 StartCoroutine(RunTurns(BattleAction.UseItem));
             };
 
@@ -418,6 +423,7 @@ public class BattleSystem : MonoBehaviour
             if (currentAction == 0)
             {
                 prevState = state;
+                action = BattleAction.Move;
                 MoveSelection();
             }
             else if (currentAction == 1)

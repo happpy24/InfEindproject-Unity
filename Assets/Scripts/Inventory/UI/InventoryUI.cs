@@ -172,6 +172,8 @@ public class InventoryUI : MonoBehaviour
                 slotUIList[i].NameText.color = new Color(0.19f, 0.19f, 0.19f);
         }
 
+        selectedItem = Mathf.Clamp(selectedItem, 0, inventory.Slots.Count - 1);
+
         var item = inventory.Slots[selectedItem].Item;
         itemIcon.sprite = item.Icon;
         itemDescription.text = item.Description;

@@ -10,22 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8893ac8f78f4ed04dadd439c798e118f, type: 3}
-  m_Name: Amogus
+  m_Name: DramaticEnd
   m_EditorClassIdentifier: 
-  name: Amogus
+  name: Dramatic End
   description: 
-  type: 2
-  power: 60
+  type: 1
+  power: 100
   accuracy: 100
   alwaysHits: 1
-  pp: 3
+  pp: 1
   category: 0
   effects:
     boosts: []
     status: 0
   secondaries:
-  - boosts: []
-    status: 2
-    chance: 30
-    target: 0
+  - boosts:
+    - stat: 0
+      boost: -3
+    - stat: 1
+      boost: -3
+    - stat: 2
+      boost: -3
+    - stat: 3
+      boost: -3
+    status: 0
+    chance: 100
+    target: 1
   target: 0

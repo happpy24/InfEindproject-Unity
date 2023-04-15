@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8893ac8f78f4ed04dadd439c798e118f, type: 3}
-  m_Name: Amogus
+  m_Name: DragonsBreath
   m_EditorClassIdentifier: 
-  name: Amogus
+  name: Dragons Breath
   description: 
   type: 2
-  power: 60
+  power: 20
   accuracy: 100
-  alwaysHits: 1
-  pp: 3
-  category: 0
+  alwaysHits: 0
+  pp: 10
+  category: 1
   effects:
     boosts: []
     status: 0
   secondaries:
   - boosts: []
-    status: 2
+    status: 3
     chance: 30
     target: 0
   target: 0

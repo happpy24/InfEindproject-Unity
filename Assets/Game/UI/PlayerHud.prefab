@@ -644,8 +644,9 @@ MonoBehaviour:
   statusText: {fileID: 8599437661558461707}
   hpBar: {fileID: 3767039796547219239}
   expBar: {fileID: 3767039795487882552}
-  psnColor: {r: 0.22463079, g: 0.6603774, b: 0.2024742, a: 1}
-  brnColor: {r: 0.8679245, g: 0.47693986, b: 0.15966538, a: 1}
+  psnColor: {r: 0.64195466, g: 0, b: 0.8113208, a: 1}
+  brnColor: {r: 0.8666667, g: 0.41980788, b: 0.1607843, a: 1}
+  parColor: {r: 0.5943396, g: 0.555478, b: 0.053266272, a: 1}
 --- !u!222 &3767039795613934982
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -304,13 +304,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e3ae0c3111154343a57eb3d4206e83f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: {fileID: 0}
-  levelText: {fileID: 0}
-  statusText: {fileID: 0}
+  nameText: {fileID: 1443239895672958510}
+  levelText: {fileID: 4727961551132416497}
+  statusText: {fileID: 7360248239911625991}
   hpBar: {fileID: 6039239129160342975}
   expBar: {fileID: 0}
-  psnColor: {r: 0.22463079, g: 0.6603774, b: 0.2024742, a: 1}
-  brnColor: {r: 0.8679245, g: 0.47693986, b: 0.15966538, a: 1}
+  psnColor: {r: 0.6431373, g: 0, b: 0.8117647, a: 1}
+  brnColor: {r: 0.8679245, g: 0.41960785, b: 0.15966538, a: 1}
+  parColor: {r: 0.6156863, g: 0.57254905, b: 0.03529412, a: 1}
 --- !u!222 &6039239129317578526
 CanvasRenderer:
   m_ObjectHideFlags: 0

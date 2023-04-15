@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8893ac8f78f4ed04dadd439c798e118f, type: 3}
   m_Name: Spark
   m_EditorClassIdentifier: 
-  name: 
+  name: Spark
   description: 
   type: 2
   power: 70

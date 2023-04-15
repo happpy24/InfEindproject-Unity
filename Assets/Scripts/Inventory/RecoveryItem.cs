@@ -19,12 +19,46 @@ public class RecoveryItem : ItemBase
 
     public override bool Use(Enemy enemy)
     {
-        if (hpAmount > 0)
+        // Restore HP
+        if (restoreMaxHP || hpAmount > 0)
         {
             if (enemy.HP == enemy.MaxHp)
                 return false;
-            
-            enemy.IncreaseHP(hpAmount);
+
+            // Fully restore if MaxHP
+            if (restoreMaxHP)
+                enemy.IncreaseHP(enemy.MaxHp);
+            else
+                enemy.IncreaseHP(hpAmount);
+        }
+
+        // Recover Status
+        if (recoverAllStatus || status != ConditionID.none)
+        {
+            if (enemy.Status == null)
+                return false;
+
+            if (recoverAllStatus)
+            {
+                enemy.CureStatus();
+            }
+            else
+            {
+                if (enemy.Status.Id == status)
+                    enemy.CureStatus();
+                else
+                    return false;
+            }
+        }
+
+        // Recover PP
+        if (restoreMaxPP)
+        {
+            enemy.Moves.ForEach(m => m.IncreasePP(m.Base.PP));
+        }
+        else if (ppAmount > 0)
+        {
+            enemy.Moves.ForEach(m => m.IncreasePP(ppAmount));
         }
 
         return true;

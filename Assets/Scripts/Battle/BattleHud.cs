@@ -21,6 +21,12 @@ public class BattleHud : MonoBehaviour
 
     public void SetData(Enemy enemy)
     {
+        if (_enemy != null)
+        {
+            _enemy.OnHPChanged -= UpdateHP;
+            _enemy.OnStatusChanged -= SetStatusText;
+        }
+
         _enemy = enemy;
 
         nameText.text = enemy.Base.Name;
@@ -36,8 +42,8 @@ public class BattleHud : MonoBehaviour
         };
 
         SetStatusText();
-        _enemy.OnStatusChanged += SetStatusText;
         _enemy.OnHPChanged += UpdateHP;
+        _enemy.OnStatusChanged += SetStatusText;
     }
 
     void SetStatusText()
