@@ -12102,12 +12102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wildEnemys:
-  - _base: {fileID: 11400000, guid: 08be70f0c8e02fd49bfcce95f844acc9, type: 2}
-    level: 1
-  - _base: {fileID: 11400000, guid: 08be70f0c8e02fd49bfcce95f844acc9, type: 2}
-    level: 2
-  - _base: {fileID: 11400000, guid: 08be70f0c8e02fd49bfcce95f844acc9, type: 2}
-    level: 3
+  - _base: {fileID: 11400000, guid: 4b8784fd5561afa44b4a848e6272fc54, type: 2}
+    level: 12
 --- !u!156049354 &1917259164
 Grid:
   m_ObjectHideFlags: 0
