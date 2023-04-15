@@ -273,7 +273,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 80eeb2c3c771bb2448c255cee9086064, type: 3}
     - target: {fileID: 7436684922552757876, guid: a0c34833b52843743b485d9a7943968c, type: 3}
       propertyPath: sceneToLoad
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7436684922552757876, guid: a0c34833b52843743b485d9a7943968c, type: 3}
       propertyPath: cameraMaxPos.x
@@ -12582,7 +12582,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: af7b4c51608fb094e999b1d8c851a1c3, type: 3}
     - target: {fileID: 7436684922552757876, guid: a0c34833b52843743b485d9a7943968c, type: 3}
       propertyPath: sceneToLoad
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7436684922552757876, guid: a0c34833b52843743b485d9a7943968c, type: 3}
       propertyPath: cameraMaxPos.x

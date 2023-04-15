@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CheckForKeyItem : MonoBehaviour
 {
+    Player player;
+
     List<ItemSlot> Slots;
     Portal portal;
 

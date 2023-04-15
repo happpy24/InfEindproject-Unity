@@ -345,9 +345,7 @@ public class BattleSystem : MonoBehaviour
     {
         if (faintedUnit.IsPlayerUnit)
         {
-            gameOver = GetComponent<GameOver>();
             BattleOver(false);
-            gameOver.OpenGameOver();
         }
         else
             BattleOver(true);
