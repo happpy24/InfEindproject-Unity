@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Plant
   description: 
-  sprite: {fileID: 21300000, guid: 26b09d2e082679d4083741012a25f9d0, type: 3}
+  sprite: {fileID: 21300000, guid: 08a0929dcc933d14396cd574e06aeb7c, type: 3}
   type1: 4
   type2: 0
   maxHp: 65

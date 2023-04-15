@@ -230,6 +230,22 @@ PrefabInstance:
       propertyPath: sceneToLoad
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7436684922552757876, guid: a0c34833b52843743b485d9a7943968c, type: 3}
+      propertyPath: cameraMaxPos.x
+      value: 11.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7436684922552757876, guid: a0c34833b52843743b485d9a7943968c, type: 3}
+      propertyPath: cameraMaxPos.y
+      value: -54.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7436684922552757876, guid: a0c34833b52843743b485d9a7943968c, type: 3}
+      propertyPath: cameraMinPos.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7436684922552757876, guid: a0c34833b52843743b485d9a7943968c, type: 3}
+      propertyPath: cameraMinPos.y
+      value: -66.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7436684922552757877, guid: a0c34833b52843743b485d9a7943968c, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -240,7 +256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7436684922552757877, guid: a0c34833b52843743b485d9a7943968c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -71.5
+      value: -71.75
       objectReference: {fileID: 0}
     - target: {fileID: 7436684922552757877, guid: a0c34833b52843743b485d9a7943968c, type: 3}
       propertyPath: m_LocalPosition.z

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Angry Neighbour
   description: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 8cd743a7e6197ec4992c54c0404d5e7a, type: 3}
   type1: 1
   type2: 0
   maxHp: 50

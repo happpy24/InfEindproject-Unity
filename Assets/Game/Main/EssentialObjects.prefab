@@ -4451,6 +4451,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3482887838228875517, guid: cb6d0a44fe3a4fa45951751b1ca02271, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3482887838381353922, guid: cb6d0a44fe3a4fa45951751b1ca02271, type: 3}
       propertyPath: m_Name
       value: UI Canvas
@@ -4537,6 +4541,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3482887838381353926, guid: cb6d0a44fe3a4fa45951751b1ca02271, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482887838977154565, guid: cb6d0a44fe3a4fa45951751b1ca02271, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 2db0c58d9e05f29489effe676ae6c1ed, type: 3}
+    - target: {fileID: 3482887838977154565, guid: cb6d0a44fe3a4fa45951751b1ca02271, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482887838977154565, guid: cb6d0a44fe3a4fa45951751b1ca02271, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482887838977154565, guid: cb6d0a44fe3a4fa45951751b1ca02271, type: 3}
+      propertyPath: m_FontData.m_FontStyle
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3972557519349137639, guid: cb6d0a44fe3a4fa45951751b1ca02271, type: 3}

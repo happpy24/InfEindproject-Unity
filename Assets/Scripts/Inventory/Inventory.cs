@@ -25,6 +25,25 @@ public class Inventory : MonoBehaviour
         return null;
     }
 
+    public void AddItem(ItemBase item, int count=1)
+    {
+        var itemSlot = slots.FirstOrDefault(slot => slot.Item == item);
+        if (itemSlot != null)
+        {
+            itemSlot.Count += count;
+        }
+        else
+        {
+            slots.Add(new ItemSlot()
+            {
+                Item = item,
+                Count = count
+            });
+        }
+
+        OnUpdated?.Invoke();
+    }
+
     public void RemoveItem(ItemBase item)
     {
         var itemSlot = slots.First(slot => slot.Item == item);
@@ -47,7 +66,11 @@ public class ItemSlot
     [SerializeField] ItemBase item;
     [SerializeField] int count;
 
-    public ItemBase Item => item;
+    public ItemBase Item
+    {
+        get => item;
+        set => item = value;
+    }
     public int Count
     {
         get => count;

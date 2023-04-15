@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Imp
   description: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 079e0a067b119a946a8874e1a575b55c, type: 3}
   type1: 2
   type2: 0
   maxHp: 50

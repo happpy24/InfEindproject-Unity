@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Will-O-Wisp
   description: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: f61ac23671fd0af41a84a49dcc069d37, type: 3}
   type1: 2
   type2: 0
   maxHp: 30

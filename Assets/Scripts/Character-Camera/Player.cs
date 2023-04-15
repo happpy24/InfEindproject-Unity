@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour, ISavable
 {
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
-    [SerializeField] string name;
+    public string name;
 #pragma warning restore CS0108 // Member hides inherited member; missing new keyword
 
     private Vector2 input;

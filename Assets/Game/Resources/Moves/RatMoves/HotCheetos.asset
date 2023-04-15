@@ -27,7 +27,7 @@ MonoBehaviour:
     status: 0
   secondaries:
   - boosts: []
-    status: 3
-    chance: 100
+    status: 2
+    chance: 10
     target: 0
   target: 0

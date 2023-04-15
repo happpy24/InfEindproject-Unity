@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Hornet
   description: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 90e8e0c0bde5ec64d87a357fde823545, type: 3}
   type1: 4
   type2: 0
   maxHp: 30

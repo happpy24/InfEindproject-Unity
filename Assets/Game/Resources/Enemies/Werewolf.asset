@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Werewolf
   description: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 74a84975f065c624ab43adcd9d876ed0, type: 3}
   type1: 1
   type2: 0
   maxHp: 75

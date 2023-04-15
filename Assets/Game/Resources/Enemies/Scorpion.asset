@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Scorpion
   description: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 41b253e8639b51448a8950530fe095a3, type: 3}
   type1: 1
   type2: 0
   maxHp: 90
