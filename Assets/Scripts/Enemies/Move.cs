@@ -34,6 +34,11 @@ public class Move
     {
         PP = Mathf.Clamp(PP + amount, 0, Base.PP);
     }
+
+    public void PPHEAL()
+    {
+        PP = Base.PP;
+    }
 }
 
 [Serializable]

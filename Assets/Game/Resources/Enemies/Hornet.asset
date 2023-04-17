@@ -17,13 +17,13 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 90e8e0c0bde5ec64d87a357fde823545, type: 3}
   type1: 4
   type2: 0
-  maxHp: 10
+  maxHp: 5
   attack: 60
   defense: 30
   spAttack: 40
   spDefense: 30
   speed: 110
-  expYield: 5
+  expYield: 20
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: 8554b851e7f7266419328b4f7cae884d, type: 2}
     level: 1

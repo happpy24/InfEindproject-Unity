@@ -27,12 +27,12 @@ public class EnemyBase : ScriptableObject
 
     [SerializeField] List<LearnableMove> learnableMoves;
 
-    public static int MaxNumOfMoves { get; set; } = 4;
+    public static int MaxNumOfMoves { get; set; } = 6;
 
     public int GetExpForLevel(int level)
     {
-        // MEDIUM FAST // return level * level * level;
-        /* MEDIUM SLOW */ return (6 / 5 * level * level * level) - (15 * level * level) + (100 * level) - 140;
+        /* MEDIUM FAST */ return level * level * level;
+        // MEDIUM SLOW // return (6 / 5 * level * level * level) - (15 * level * level) + (100 * level) - 140;
     }
 
     public string Name

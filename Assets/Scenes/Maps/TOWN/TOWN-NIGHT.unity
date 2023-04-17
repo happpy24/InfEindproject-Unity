@@ -13818,6 +13818,26 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: -32, y: 19, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 24
+      m_TileSpriteIndex: 20
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -31, y: 19, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 23
+      m_TileSpriteIndex: 19
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: -16, y: 19, z: 0}
     second:
       serializedVersion: 2
@@ -13893,6 +13913,26 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 32
       m_TileSpriteIndex: 32
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -32, y: 20, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 22
+      m_TileSpriteIndex: 18
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -31, y: 20, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 19
+      m_TileSpriteIndex: 17
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -16408,18 +16448,18 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 35f7adb348b281c40b9af98f7a1297f7, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: e31675603bec2f843945066e550f50dc, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 98449e1e86d93c0459b6034b802a497b, type: 2}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 12fb81a07d207f1489cc1dd6376b4aa9, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: c3f7c557d04e4d04793501d1da1d3154, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: f44ea7cc9d0feb94287ed33bb4b19c69, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 6b49922e1b73e144eb7c640d6f403407, type: 2}
   - m_RefCount: 5
@@ -16589,14 +16629,14 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 2
     m_Data: {fileID: 350462345, guid: edb7a81304bab7944a664cc52012df3e, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -328871846, guid: edb7a81304bab7944a664cc52012df3e, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: -340333518, guid: edb7a81304bab7944a664cc52012df3e, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: -267438754, guid: edb7a81304bab7944a664cc52012df3e, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 605381453, guid: edb7a81304bab7944a664cc52012df3e, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 1793625210, guid: edb7a81304bab7944a664cc52012df3e, type: 3}
   - m_RefCount: 1
@@ -16740,7 +16780,7 @@ Tilemap:
   - m_RefCount: 11
     m_Data: {fileID: 924474191, guid: 260476b662193ad479f6e4858fddb1b6, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 952
+  - m_RefCount: 956
     m_Data:
       e00: 1
       e01: 0
@@ -16759,7 +16799,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 952
+  - m_RefCount: 956
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -62328,7 +62368,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!224 &1537605374
 RectTransform:

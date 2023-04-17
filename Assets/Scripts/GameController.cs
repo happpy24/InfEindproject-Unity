@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
     [SerializeField] AudioClip gameOverMusic;
     [SerializeField] AudioSource musicSaver;
 
+    Healer healer;
+
     AudioClip prevMusic;
 
     GameState state;
@@ -80,7 +82,14 @@ public class GameController : MonoBehaviour
 
         gameOver.onBack += () =>
         {
-            state = GameState.GameOver;
+            if (healer.savedLocation != null)
+            {
+                player.transform.position = healer.savedLocation;
+            }
+            else
+            {
+                player.transform.position = 
+            }
         };
     }
 

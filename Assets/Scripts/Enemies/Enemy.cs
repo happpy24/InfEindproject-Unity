@@ -130,7 +130,7 @@ public class Enemy
 
         // APPLY STAT BOOST
         int boost = StatBoosts[stat];
-        var boostValues = new float[] { 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f };
+        var boostValues = new float[] { 1f, 1.25f, 1.5f, 1.75f, 2f, 2.25f, 2.5f };
 
         if (boost >= 0)
             statVal = Mathf.FloorToInt(statVal * boostValues[boost]);
@@ -187,6 +187,7 @@ public class Enemy
     public void Heal()
     {
         HP = MaxHp;
+        CureStatus();
         OnHPChanged?.Invoke();
     }
 

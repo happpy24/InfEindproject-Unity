@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Dragons Breath
   description: 
   type: 2
-  power: 20
+  power: 80
   accuracy: 100
   alwaysHits: 0
   pp: 10
