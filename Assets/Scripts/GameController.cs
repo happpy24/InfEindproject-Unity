@@ -1,7 +1,9 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState { MainMenu, FreeRoam, Battle, Dialog, Menu, GameOver, Info, Item, Cutscene, Paused }
 
@@ -19,8 +21,6 @@ public class GameController : MonoBehaviour
     [SerializeField] AudioClip gameOverMusic;
     [SerializeField] AudioSource musicSaver;
 
-    Healer healer;
-
     AudioClip prevMusic;
 
     GameState state;
@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
     public static GameController Instance { get; private set; }
     public static Camera WorldCamera { get; set; }
 
+    Healer healer;
     MenuController menuController;
     GameOver gameOver;
     MainMenu mainMenu;
@@ -38,6 +39,7 @@ public class GameController : MonoBehaviour
     {
         Instance = this;
 
+        healer = new Healer();
         menuController = GetComponent<MenuController>();
         gameOver = GetComponent<GameOver>();
         mainMenu = GetComponent<MainMenu>();
@@ -82,13 +84,21 @@ public class GameController : MonoBehaviour
 
         gameOver.onBack += () =>
         {
-            if (healer.savedLocation != null)
+            var battlePlayer = player.GetComponent<BattlePlayer>();
+            battlePlayer.Enemys.ForEach(p => p.Heal());
+            battlePlayer.Enemys.ForEach(p => p.Moves.ForEach(m => m.PPHEAL()));
+            battlePlayer.BattlePlayerUpdated();
+            Vector3 newPlayerPos = healer.SavedLocation;
+            StartCoroutine(GameOverBack());
+            state = GameState.FreeRoam;
+            if (newPlayerPos != null)
             {
-                player.transform.position = healer.savedLocation;
+                player.transform.position = newPlayerPos;
+
             }
             else
             {
-                player.transform.position = 
+                player.transform.position = new Vector3(-2, -1);
             }
         };
     }
@@ -131,7 +141,7 @@ public class GameController : MonoBehaviour
             state = GameState.GameOver;
             StartCoroutine(GameOverHandler());
         }
-        
+
     }
 
     private IEnumerator OpeningAnimation()
@@ -173,6 +183,18 @@ public class GameController : MonoBehaviour
         loadingAnimation.SetBool("StartLoading", true);
         yield return new WaitForSeconds(0.16f);
         mainMenu.Menu.gameObject.SetActive(false);
+        loadingAnimation.SetBool("EndLoading", true);
+    }
+
+    private IEnumerator GameOverBack()
+    {
+        loadingAnimation.SetBool("StartLoading", true);
+        yield return new WaitForSeconds(0.4f);
+        yield return SceneManager.LoadSceneAsync(healer.SavedScene);
+        var cam = FindAnyObjectByType<GameplayCamera>();
+        cam.MaxPos = healer.savedCamMax;
+        cam.MinPos = healer.savedCamMin;
+        gameOver.Menu.gameObject.SetActive(false);
         loadingAnimation.SetBool("EndLoading", true);
     }
 
@@ -232,26 +254,9 @@ public class GameController : MonoBehaviour
         }
         else if (selectedItem == 1)
         {
-            // Saving
-            SavingSystem.i.Save("saveSlot1");
-            state = GameState.FreeRoam;
-        }
-        else if (selectedItem == 2)
-        {
-            // Loading
-            SavingSystem.i.Load("saveSlot1");
-            state = GameState.FreeRoam;
-        }
-        else if (selectedItem == 3)
-        {
             // OPTIONS
         }
-        else if (selectedItem == 4)
-        {
-            // Mainmenu
-            state = GameState.MainMenu;
-        }
-        else if (selectedItem == 5)
+        else if (selectedItem == 2)
         {
             // Quit
             Debug.Log("QUIT GAME");
