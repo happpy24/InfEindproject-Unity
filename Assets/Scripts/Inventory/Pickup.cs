@@ -19,7 +19,7 @@ public class Pickup : MonoBehaviour, Interactable, ISavable
             GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<BoxCollider2D>().enabled = false;
 
-            yield return DialogManager.Instance.ShowDialogText($"Tim found '{item.Name}'");
+            yield return DialogManager.Instance.ShowDialogText($"You found '{item.Name}'");
         }
     }
 

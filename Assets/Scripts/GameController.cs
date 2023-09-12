@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum GameState { MainMenu, FreeRoam, Battle, Dialog, Menu, GameOver, Info, Item, Cutscene, Paused }
+public enum GameState { FreeRoam, Battle, Dialog, Menu, MainMenu, Info, Item, Cutscene, Paused }
 
 public class GameController : MonoBehaviour
 {
@@ -18,7 +18,6 @@ public class GameController : MonoBehaviour
     [SerializeField] Animator loadingAnimation;
 
     [SerializeField] AudioClip wildBattleMusic;
-    [SerializeField] AudioClip gameOverMusic;
     [SerializeField] AudioSource musicSaver;
 
     AudioClip prevMusic;
@@ -32,8 +31,6 @@ public class GameController : MonoBehaviour
 
     Healer healer;
     MenuController menuController;
-    GameOver gameOver;
-    MainMenu mainMenu;
 
     private void Awake()
     {
@@ -41,8 +38,6 @@ public class GameController : MonoBehaviour
 
         healer = new Healer();
         menuController = GetComponent<MenuController>();
-        gameOver = GetComponent<GameOver>();
-        mainMenu = GetComponent<MainMenu>();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -62,7 +57,6 @@ public class GameController : MonoBehaviour
             prevState = state;
             state = GameState.Dialog;
         };
-
         DialogManager.Instance.OnCloseDialog += () =>
         {
             if (state == GameState.Dialog)
@@ -75,6 +69,7 @@ public class GameController : MonoBehaviour
         };
 
         menuController.onMenuSelected += OnMenuSelected;
+<<<<<<< HEAD
 
         mainMenu.onBack += () =>
         {
@@ -101,6 +96,8 @@ public class GameController : MonoBehaviour
                 player.transform.position = new Vector3(-2, -1);
             }
         };
+=======
+>>>>>>> parent of 3b6bc7d5 (unity man. its over.)
     }
 
     public void PauseGame(bool pause)
@@ -130,6 +127,7 @@ public class GameController : MonoBehaviour
 
     void EndBattle(bool won)
     {
+<<<<<<< HEAD
         if (won)
         {
             AudioManager.i.PlayMusic(prevMusic);
@@ -142,6 +140,11 @@ public class GameController : MonoBehaviour
             StartCoroutine(GameOverHandler());
         }
 
+=======
+        AudioManager.i.PlayMusic(prevMusic);
+        state = GameState.FreeRoam;
+        StartCoroutine(EndingAnimation());
+>>>>>>> parent of 3b6bc7d5 (unity man. its over.)
     }
 
     private IEnumerator OpeningAnimation()
@@ -167,24 +170,6 @@ public class GameController : MonoBehaviour
         worldCamera.gameObject.SetActive(true);
     }
 
-    private IEnumerator GameOverHandler()
-    {
-        loadingAnimation.SetBool("StartLoading", true);
-        yield return new WaitForSeconds(0.16f);
-        battleSystem.gameObject.SetActive(false);
-        gameOver.Menu.SetActive(true);
-        worldCamera.gameObject.SetActive(true);
-        AudioManager.i.PlayMusic(gameOverMusic, false, true);
-        loadingAnimation.SetBool("EndLoading", true);
-    }
-
-    private IEnumerator MainMenuHandler()
-    {
-        loadingAnimation.SetBool("StartLoading", true);
-        yield return new WaitForSeconds(0.16f);
-        mainMenu.Menu.gameObject.SetActive(false);
-        loadingAnimation.SetBool("EndLoading", true);
-    }
 
     private IEnumerator GameOverBack()
     {
@@ -200,11 +185,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (state == GameState.MainMenu)
-        {
-            mainMenu.HandleUpdate();
-        }
-        else if (state == GameState.FreeRoam)
+        if (state == GameState.FreeRoam)
         {
             player.HandleUpdate();
 
@@ -225,10 +206,6 @@ public class GameController : MonoBehaviour
         else if (state == GameState.Menu)
         {
             menuController.HandleUpdate();
-        }
-        else if (state == GameState.GameOver)
-        {
-            gameOver.HandleUpdate();
         }
         else if (state == GameState.Item)
         {

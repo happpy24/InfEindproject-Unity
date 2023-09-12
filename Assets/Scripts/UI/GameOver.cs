@@ -13,8 +13,6 @@ public class GameOver : MonoBehaviour
     public event Action<int> onMenuSelected;
     public event Action onBack;
 
-    public GameObject Menu { get { return menu; } }
-
     List<Text> menuItems;
 
     int selectedItem = 0;
@@ -26,6 +24,7 @@ public class GameOver : MonoBehaviour
 
     public void OpenGameOver()
     {
+        AudioManager.i.PlayMusic(gameoverClip, false);
         menu.SetActive(true);
         UpdateItemSelection();
     }
@@ -53,7 +52,7 @@ public class GameOver : MonoBehaviour
         {
             if (selectedItem == 0)
             {
-                onBack?.Invoke();
+                // do something
             }
             else if (selectedItem == 1)
             {
@@ -69,7 +68,7 @@ public class GameOver : MonoBehaviour
             if (i == selectedItem)
                 menuItems[i].color = GlobalSettings.i.HighlightedColor;
             else
-                menuItems[i].color = new Color(1f, 1f, 1f);
+                menuItems[i].color = new Color(0.19f, 0.19f, 0.19f);
         }
     }
 }
